@@ -1,0 +1,25 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://asialife.kz/ws" elementFormDefault="qualified">
+
+    <xs:element name="authorizationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="iin" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="authorizationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="iin" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+                <xs:element name="fio" type="xs:string"/>
+                <xs:element name="phone" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="result" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
