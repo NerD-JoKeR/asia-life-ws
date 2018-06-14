@@ -5,9 +5,12 @@ import kz.asialife.ws.AuthorizationRequest;
 import kz.asialife.ws.AuthorizationResponse;
 import kz.asialife.ws.ChangePasswordRequest;
 import kz.asialife.ws.ChangePasswordResponse;
+import kz.asialife.ws.MstRequest;
+import kz.asialife.ws.MstResponse;
 import kz.asialife.ws.OsrnsRequest;
 import kz.asialife.ws.OsrnsResponse;
 import kz.asialife.ws.components.authorization.AuthorizationComponent;
+import kz.asialife.ws.components.calculator.CalculatorMstComponent;
 import kz.asialife.ws.components.calculator.CalculatorOSRNSComponent;
 import kz.asialife.ws.components.changePassword.ChangePasswordComponent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +26,15 @@ public class WSEndpoint {
     @Autowired
     private AuthorizationComponent authorizationComponent;
 
+
+    @Autowired
+    private ChangePasswordComponent changePasswordComponent;
+
     @Autowired
     private CalculatorOSRNSComponent osrnsComponent;
 
     @Autowired
-    private ChangePasswordComponent changePasswordComponent;
+    private CalculatorMstComponent mstComponent;
 
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authorizationRequest")
@@ -36,15 +43,24 @@ public class WSEndpoint {
         return authorizationComponent.authorize(request);
     }
 
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "changePasswordRequest")
+    @ResponsePayload
+    public ChangePasswordResponse changePasswordRequest(@RequestPayload ChangePasswordRequest request) {
+        return changePasswordComponent.changePassword(request);
+    }
+
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "osrnsRequest")
     @ResponsePayload
     public OsrnsResponse osrnsRequest(@RequestPayload OsrnsRequest request) {
         return osrnsComponent.osrns(request);
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "changePasswordRequest")
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "mstRequest")
     @ResponsePayload
-    public ChangePasswordResponse changePasswordRequest(@RequestPayload ChangePasswordRequest request) {
-        return changePasswordComponent.changePassword(request);
+    public MstResponse mstRequest(@RequestPayload MstRequest request) {
+        return mstComponent.mst(request);
     }
 }
