@@ -25,8 +25,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="iin" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="oked" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="yearFond" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="col_sotr" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,63 +38,64 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "iin",
-    "password"
+    "oked",
+    "yearFond",
+    "colSotr"
 })
-@XmlRootElement(name = "authorizationRequest")
-public class AuthorizationRequest {
+@XmlRootElement(name = "osrnsRequest")
+public class OsrnsRequest {
 
-    @XmlElement(required = true)
-    protected String iin;
-    @XmlElement(required = true)
-    protected String password;
+    protected int oked;
+    protected double yearFond;
+    @XmlElement(name = "col_sotr")
+    protected int colSotr;
 
     /**
-     * Gets the value of the iin property.
+     * Gets the value of the oked property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getIin() {
-        return iin;
+    public int getOked() {
+        return oked;
     }
 
     /**
-     * Sets the value of the iin property.
+     * Sets the value of the oked property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setIin(String value) {
-        this.iin = value;
+    public void setOked(int value) {
+        this.oked = value;
     }
 
     /**
-     * Gets the value of the password property.
+     * Gets the value of the yearFond property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getPassword() {
-        return password;
+    public double getYearFond() {
+        return yearFond;
     }
 
     /**
-     * Sets the value of the password property.
+     * Sets the value of the yearFond property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setPassword(String value) {
-        this.password = value;
+    public void setYearFond(double value) {
+        this.yearFond = value;
+    }
+
+    /**
+     * Gets the value of the colSotr property.
+     * 
+     */
+    public int getColSotr() {
+        return colSotr;
+    }
+
+    /**
+     * Sets the value of the colSotr property.
+     * 
+     */
+    public void setColSotr(int value) {
+        this.colSotr = value;
     }
 
 }

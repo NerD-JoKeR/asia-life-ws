@@ -22,4 +22,50 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+
+    <xs:element name="changePasswordRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="iin" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+                <xs:element name="oldPass" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="changePasswordResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="iin" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+                <xs:element name="oldPass" type="xs:string"/>
+                <xs:element name="result" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="osrnsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="oked" type="xs:int"/>
+                <xs:element name="yearFond" type="xs:double"/>
+                <xs:element name="col_sotr" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="osrnsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="premKz" type="xs:string"/>
+                <xs:element name="kurs" type="xs:string"/>
+                <xs:element name="sumStrahKz" type="xs:string"/>
+                <xs:element name="premEur" type="xs:string"/>
+                <xs:element name="err" type="xs:string"/>
+                <xs:element name="result" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

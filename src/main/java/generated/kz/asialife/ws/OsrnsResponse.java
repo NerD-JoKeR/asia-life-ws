@@ -25,11 +25,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="iin" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="fio" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="phone" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="premKz" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="kurs" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="sumStrahKz" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="premEur" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="err" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="result" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -41,147 +41,147 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "iin",
-    "password",
-    "fio",
-    "phone",
-    "email",
+    "premKz",
+    "kurs",
+    "sumStrahKz",
+    "premEur",
+    "err",
     "result"
 })
-@XmlRootElement(name = "authorizationResponse")
-public class AuthorizationResponse {
+@XmlRootElement(name = "osrnsResponse")
+public class OsrnsResponse {
 
     @XmlElement(required = true)
-    protected String iin;
+    protected String premKz;
     @XmlElement(required = true)
-    protected String password;
+    protected String kurs;
     @XmlElement(required = true)
-    protected String fio;
+    protected String sumStrahKz;
     @XmlElement(required = true)
-    protected String phone;
+    protected String premEur;
     @XmlElement(required = true)
-    protected String email;
+    protected String err;
     @XmlElement(required = true)
     protected String result;
 
     /**
-     * Gets the value of the iin property.
+     * Gets the value of the premKz property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getIin() {
-        return iin;
+    public String getPremKz() {
+        return premKz;
     }
 
     /**
-     * Sets the value of the iin property.
+     * Sets the value of the premKz property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setIin(String value) {
-        this.iin = value;
+    public void setPremKz(String value) {
+        this.premKz = value;
     }
 
     /**
-     * Gets the value of the password property.
+     * Gets the value of the kurs property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getPassword() {
-        return password;
+    public String getKurs() {
+        return kurs;
     }
 
     /**
-     * Sets the value of the password property.
+     * Sets the value of the kurs property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setPassword(String value) {
-        this.password = value;
+    public void setKurs(String value) {
+        this.kurs = value;
     }
 
     /**
-     * Gets the value of the fio property.
+     * Gets the value of the sumStrahKz property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getFio() {
-        return fio;
+    public String getSumStrahKz() {
+        return sumStrahKz;
     }
 
     /**
-     * Sets the value of the fio property.
+     * Sets the value of the sumStrahKz property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setFio(String value) {
-        this.fio = value;
+    public void setSumStrahKz(String value) {
+        this.sumStrahKz = value;
     }
 
     /**
-     * Gets the value of the phone property.
+     * Gets the value of the premEur property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getPhone() {
-        return phone;
+    public String getPremEur() {
+        return premEur;
     }
 
     /**
-     * Sets the value of the phone property.
+     * Sets the value of the premEur property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setPhone(String value) {
-        this.phone = value;
+    public void setPremEur(String value) {
+        this.premEur = value;
     }
 
     /**
-     * Gets the value of the email property.
+     * Gets the value of the err property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getEmail() {
-        return email;
+    public String getErr() {
+        return err;
     }
 
     /**
-     * Sets the value of the email property.
+     * Sets the value of the err property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setEmail(String value) {
-        this.email = value;
+    public void setErr(String value) {
+        this.err = value;
     }
 
     /**

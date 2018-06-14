@@ -27,6 +27,8 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="iin" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="oldPass" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="result" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,15 +40,21 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "iin",
-    "password"
+    "password",
+    "oldPass",
+    "result"
 })
-@XmlRootElement(name = "authorizationRequest")
-public class AuthorizationRequest {
+@XmlRootElement(name = "changePasswordResponse")
+public class ChangePasswordResponse {
 
     @XmlElement(required = true)
     protected String iin;
     @XmlElement(required = true)
     protected String password;
+    @XmlElement(required = true)
+    protected String oldPass;
+    @XmlElement(required = true)
+    protected String result;
 
     /**
      * Gets the value of the iin property.
@@ -94,6 +102,54 @@ public class AuthorizationRequest {
      */
     public void setPassword(String value) {
         this.password = value;
+    }
+
+    /**
+     * Gets the value of the oldPass property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOldPass() {
+        return oldPass;
+    }
+
+    /**
+     * Sets the value of the oldPass property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOldPass(String value) {
+        this.oldPass = value;
+    }
+
+    /**
+     * Gets the value of the result property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getResult() {
+        return result;
+    }
+
+    /**
+     * Sets the value of the result property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setResult(String value) {
+        this.result = value;
     }
 
 }
