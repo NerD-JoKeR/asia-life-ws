@@ -60,9 +60,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="premKz" type="xs:string"/>
-                <xs:element name="kurs" type="xs:string"/>
                 <xs:element name="sumStrahKz" type="xs:string"/>
-                <xs:element name="premEur" type="xs:string"/>
                 <xs:element name="err" type="xs:string"/>
                 <xs:element name="result" type="xs:string"/>
             </xs:sequence>
@@ -76,12 +74,13 @@
                 <xs:element name="country1" type="xs:int"/>
                 <xs:element name="country2" type="xs:int"/>
                 <xs:element name="country3" type="xs:int"/>
+                <xs:element name="sumStrah" type="xs:int"/>
                 <xs:element name="insuranceProgramm" type="xs:int"/>
-                <xs:element name="beginDate" type="xs:date"/>
-                <xs:element name="endDate" type="xs:date"/>
-                <xs:element name="birthDate" type="xs:date"/>
-                <xs:element name="numberOfDays" type="xs:int"/>
-                <xs:element name="contactNumber" type="xs:string"/>
+                <xs:element name="beginDate" type="xs:string"/>
+                <xs:element name="endDate" type="xs:string"/>
+                <xs:element name="birthDate" type="xs:string"/>
+                <xs:element name="rprogSrok" type="xs:int"/>
+                <xs:element name="rprogMaxDays" type="xs:int"/>
                 <xs:element name="email" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
@@ -95,17 +94,6 @@
                 <xs:element name="sumStrahKz" type="xs:string"/>
                 <xs:element name="premEur" type="xs:string"/>
                 <xs:element name="err" type="xs:string"/>
-                <xs:element name="result" type="xs:string"/>
-                <xs:element name="contactNumber" type="xs:string"/>
-                <xs:element name="email" type="xs:string"/>
-                <xs:element name="country1" type="xs:int"/>
-                <xs:element name="country2" type="xs:int"/>
-                <xs:element name="country3" type="xs:int"/>
-                <xs:element name="insuranceProgramm" type="xs:int"/>
-                <xs:element name="beginDate" type="xs:date"/>
-                <xs:element name="endDate" type="xs:date"/>
-                <xs:element name="birthDate" type="xs:date"/>
-                <xs:element name="numberOfDays" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
