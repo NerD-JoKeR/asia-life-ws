@@ -97,4 +97,59 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+
+    <xs:element name="regMstRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="country1" type="xs:int"/>
+                <xs:element name="rprogramm" type="xs:int"/>
+                <xs:element name="rprogSrok" type="xs:int"/>
+                <xs:element name="progMaxDays" type="xs:int"/>
+                <xs:element name="curRate" type="xs:int"/>
+                <xs:element name="region" type="xs:int"/>
+                <xs:element name="region2" type="xs:int"/>
+                <xs:element name="doc_type" type="xs:int"/>
+                <xs:element name="dateStart" type="xs:string"/>
+                <xs:element name="dateEnd" type="xs:string"/>
+                <xs:element name="fioKir" type="xs:string"/>
+                <xs:element name="fioLat" type="xs:string"/>
+                <xs:element name="inn" type="xs:string"/>
+                <xs:element name="resId" type="xs:string"/>
+                <xs:element name="address" type="xs:string"/>
+                <xs:element name="sex" type="xs:string"/>
+                <xs:element name="dateBirth" type="xs:string"/>
+                <xs:element name="fioKir2" type="xs:string"/>
+                <xs:element name="fioLat2" type="xs:string"/>
+                <xs:element name="iin2" type="xs:string"/>
+                <xs:element name="resId2" type="xs:string"/>
+                <xs:element name="address2" type="xs:string"/>
+                <xs:element name="sex2" type="xs:string"/>
+                <xs:element name="dateBirth2" type="xs:string"/>
+                <xs:element name="passportNum" type="xs:string"/>
+                <xs:element name="passportGive" type="xs:string"/>
+                <xs:element name="passportDate" type="xs:string"/>
+                <xs:element name="passportDateEnd" type="xs:string"/>
+                <xs:element name="passportNum2" type="xs:string"/>
+                <xs:element name="passportGive2" type="xs:string"/>
+                <xs:element name="passportDate2" type="xs:string"/>
+                <xs:element name="passportDateEnd2" type="xs:string"/>
+                <xs:element name="mobilePhone" type="xs:string"/>
+                <xs:element name="mobilePhone2" type="xs:string"/>
+                <xs:element name="phone" type="xs:string"/>
+                <xs:element name="phone2" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="email2" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="regMstResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>
