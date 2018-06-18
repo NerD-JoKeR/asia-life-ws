@@ -9,10 +9,13 @@ import kz.asialife.ws.MstRequest;
 import kz.asialife.ws.MstResponse;
 import kz.asialife.ws.OsrnsRequest;
 import kz.asialife.ws.OsrnsResponse;
+import kz.asialife.ws.RegMstRequest;
+import kz.asialife.ws.RegMstResponse;
 import kz.asialife.ws.components.authorization.AuthorizationComponent;
 import kz.asialife.ws.components.calculator.CalculatorMstComponent;
 import kz.asialife.ws.components.calculator.CalculatorOSRNSComponent;
 import kz.asialife.ws.components.changePassword.ChangePasswordComponent;
+import kz.asialife.ws.components.registration.MstRegistrationComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -35,6 +38,9 @@ public class WSEndpoint {
 
     @Autowired
     private CalculatorMstComponent mstComponent;
+
+    @Autowired
+    private MstRegistrationComponent mstRegistrationComponent;
 
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authorizationRequest")
@@ -62,5 +68,11 @@ public class WSEndpoint {
     @ResponsePayload
     public MstResponse mstRequest(@RequestPayload MstRequest request) {
         return mstComponent.mst(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "regMstRequest")
+    @ResponsePayload
+    public RegMstResponse regMstRequest(@RequestPayload RegMstRequest request) {
+        return mstRegistrationComponent.mst(request);
     }
 }
