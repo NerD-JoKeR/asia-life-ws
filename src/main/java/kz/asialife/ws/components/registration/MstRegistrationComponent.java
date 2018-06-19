@@ -15,13 +15,11 @@ import java.util.Date;
 
 @Component
 public class MstRegistrationComponent {
-
     public RegMstResponse mst(RegMstRequest request){
         DateFormat sourceFormat = new SimpleDateFormat("dd.MM.yyyy");
 
         RegMstResponse response = new RegMstResponse();
         try {
-
             Date begin = sourceFormat.parse(request.getDateStart());
             Date end = sourceFormat.parse(request.getDateEnd());
             Date birth = sourceFormat.parse(request.getDateBirth());
@@ -30,8 +28,6 @@ public class MstRegistrationComponent {
             Date passportDate2 = sourceFormat.parse(request.getPassportDate2());
             Date passportEnd = sourceFormat.parse(request.getPassportDateEnd());
             Date passportEnd2 = sourceFormat.parse(request.getPassportDateEnd2());
-
-            // TODO  dont forget check this code !! and after that check connection with oracle.
 
             DriverManager.registerDriver(new OracleDriver());
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";

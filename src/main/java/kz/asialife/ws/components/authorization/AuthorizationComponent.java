@@ -29,8 +29,6 @@ public class AuthorizationComponent {
             callableStatement.registerOutParameter(5, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(6, java.sql.Types.VARCHAR);
 
-
-
             callableStatement.execute();
             //this is the main line
             response.setResult(callableStatement.getString(1));
