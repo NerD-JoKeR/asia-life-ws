@@ -29,7 +29,7 @@ public class MstRegistrationComponent {
             Date passportEnd = sourceFormat.parse(request.getPassportDateEnd());
             Date passportEnd2 = sourceFormat.parse(request.getPassportDateEnd2());
 
-            // TODO  for check ethernet to connect with git(oush and pull)
+            // TODO  for check ethernet to connect with git(oush and pull) 123456123456
 
             DriverManager.registerDriver(new OracleDriver());
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
