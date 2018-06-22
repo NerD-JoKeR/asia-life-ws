@@ -5,6 +5,8 @@ import kz.asialife.ws.AuthorizationRequest;
 import kz.asialife.ws.AuthorizationResponse;
 import kz.asialife.ws.ChangePasswordRequest;
 import kz.asialife.ws.ChangePasswordResponse;
+import kz.asialife.ws.KazinaRequest;
+import kz.asialife.ws.KazinaResponse;
 import kz.asialife.ws.MstRequest;
 import kz.asialife.ws.MstResponse;
 import kz.asialife.ws.OsrnsRequest;
@@ -12,6 +14,7 @@ import kz.asialife.ws.OsrnsResponse;
 import kz.asialife.ws.RegMstRequest;
 import kz.asialife.ws.RegMstResponse;
 import kz.asialife.ws.components.authorization.AuthorizationComponent;
+import kz.asialife.ws.components.calculator.CalculatorKazinaComponent;
 import kz.asialife.ws.components.calculator.CalculatorMstComponent;
 import kz.asialife.ws.components.calculator.CalculatorOSRNSComponent;
 import kz.asialife.ws.components.changePassword.ChangePasswordComponent;
@@ -43,6 +46,9 @@ public class WSEndpoint {
     @Autowired
     private MstRegistrationComponent mstRegistrationComponent;
 
+    @Autowired
+    private CalculatorKazinaComponent calculatorKazinaComponent;
+
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authorizationRequest")
     @ResponsePayload
@@ -69,6 +75,12 @@ public class WSEndpoint {
     @ResponsePayload
     public MstResponse mstRequest(@RequestPayload MstRequest request) {
         return mstComponent.mst(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "kazinaRequest")
+    @ResponsePayload
+    public KazinaResponse kazinaRequest(@RequestPayload KazinaRequest request) {
+        return calculatorKazinaComponent.kazina(request);
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "regMstRequest")

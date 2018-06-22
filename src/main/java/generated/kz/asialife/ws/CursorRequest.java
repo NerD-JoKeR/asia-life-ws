@@ -25,8 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="iin" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="inn" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,63 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "iin",
-    "password"
+    "inn"
 })
-@XmlRootElement(name = "authorizationRequest")
-public class AuthorizationRequest {
+@XmlRootElement(name = "cursorRequest")
+public class CursorRequest {
 
     @XmlElement(required = true)
-    protected String iin;
-    @XmlElement(required = true)
-    protected String password;
+    protected String inn;
 
     /**
-     * Gets the value of the iin property.
+     * Gets the value of the inn property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getIin() {
-        return iin;
+    public String getInn() {
+        return inn;
     }
 
     /**
-     * Sets the value of the iin property.
+     * Sets the value of the inn property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setIin(String value) {
-        this.iin = value;
-    }
-
-    /**
-     * Gets the value of the password property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Sets the value of the password property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPassword(String value) {
-        this.password = value;
+    public void setInn(String value) {
+        this.inn = value;
     }
 
 }
