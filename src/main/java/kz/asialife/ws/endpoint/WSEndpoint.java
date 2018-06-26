@@ -5,6 +5,10 @@ import kz.asialife.ws.AuthorizationRequest;
 import kz.asialife.ws.AuthorizationResponse;
 import kz.asialife.ws.ChangePasswordRequest;
 import kz.asialife.ws.ChangePasswordResponse;
+import kz.asialife.ws.CursorRequest;
+import kz.asialife.ws.CursorResponse;
+import kz.asialife.ws.KazinaRequest;
+import kz.asialife.ws.KazinaResponse;
 import kz.asialife.ws.MstRequest;
 import kz.asialife.ws.MstResponse;
 import kz.asialife.ws.OsrnsRequest;
@@ -12,9 +16,11 @@ import kz.asialife.ws.OsrnsResponse;
 import kz.asialife.ws.RegMstRequest;
 import kz.asialife.ws.RegMstResponse;
 import kz.asialife.ws.components.authorization.AuthorizationComponent;
+import kz.asialife.ws.components.calculator.CalculatorKazinaComponent;
 import kz.asialife.ws.components.calculator.CalculatorMstComponent;
 import kz.asialife.ws.components.calculator.CalculatorOSRNSComponent;
 import kz.asialife.ws.components.changePassword.ChangePasswordComponent;
+import kz.asialife.ws.components.cursor.CursorComponent;
 import kz.asialife.ws.components.registration.MstRegistrationComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -43,6 +49,11 @@ public class WSEndpoint {
     @Autowired
     private MstRegistrationComponent mstRegistrationComponent;
 
+    @Autowired
+    private CalculatorKazinaComponent calculatorKazinaComponent;
+
+    @Autowired
+    private CursorComponent cursorComponent;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authorizationRequest")
     @ResponsePayload
@@ -71,9 +82,22 @@ public class WSEndpoint {
         return mstComponent.mst(request);
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "kazinaRequest")
+    @ResponsePayload
+    public KazinaResponse kazinaRequest(@RequestPayload KazinaRequest request) {
+        return calculatorKazinaComponent.kazina(request);
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "regMstRequest")
     @ResponsePayload
     public RegMstResponse regMstRequest(@RequestPayload RegMstRequest request) {
         return mstRegistrationComponent.mst(request);
     }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorRequest")
+    @ResponsePayload
+    public CursorResponse cursorRequest(@RequestPayload CursorRequest request) {
+        return cursorComponent.cursor(request);
+    }
+
 }

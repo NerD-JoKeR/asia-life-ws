@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="inn" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "message"
+    "inn"
 })
-@XmlRootElement(name = "regMstResponse")
-public class RegMstResponse {
+@XmlRootElement(name = "cursorRequest")
+public class CursorRequest {
 
     @XmlElement(required = true)
-    protected String message;
+    protected String inn;
 
     /**
-     * Gets the value of the message property.
+     * Gets the value of the inn property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getMessage() {
-        return message;
+    public String getInn() {
+        return inn;
     }
 
     /**
-     * Sets the value of the message property.
+     * Sets the value of the inn property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setMessage(String value) {
-        this.message = value;
+    public void setInn(String value) {
+        this.inn = value;
     }
 
 }

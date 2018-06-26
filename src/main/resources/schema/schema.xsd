@@ -99,6 +99,41 @@
     </xs:element>
 
 
+    <xs:element name="kazinaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="periodichnost" type="xs:string"/>
+                <xs:element name="sex" type="xs:string"/>
+                <xs:element name="clnYears" type="xs:int"/>
+                <xs:element name="srokYears" type="xs:int"/>
+                <xs:element name="strSum" type="xs:int"/>
+                <xs:element name="ADB" type="xs:int"/>
+                <xs:element name="ATPD" type="xs:int"/>
+                <xs:element name="TT" type="xs:int"/>
+                <xs:element name="CI" type="xs:int"/>
+                <xs:element name="TD" type="xs:int"/>
+                <xs:element name="HD" type="xs:int"/>
+                <xs:element name="TPD" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="kazinaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="number" type="xs:string"/>
+                <xs:element name="OutADB" type="xs:string"/>
+                <xs:element name="OutATPD" type="xs:string"/>
+                <xs:element name="OutTT" type="xs:string"/>
+                <xs:element name="OutCI" type="xs:string"/>
+                <xs:element name="OutTD" type="xs:string"/>
+                <xs:element name="OutHD" type="xs:string"/>
+                <xs:element name="OutTPD" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
     <xs:element name="regMstRequest">
         <xs:complexType>
             <xs:sequence>
@@ -148,6 +183,23 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="cursorRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="inn" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cursorResponse">
+        <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="cursor" type="xs:string" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
