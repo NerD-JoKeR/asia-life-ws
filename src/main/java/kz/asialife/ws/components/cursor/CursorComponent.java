@@ -1,57 +1,65 @@
 package kz.asialife.ws.components.cursor;
 
 
+import kz.asialife.ws.CursorRequest;
+import kz.asialife.ws.CursorResponse;
 import java.sql.DriverManager;
+import oracle.jdbc.driver.OracleDriver;
+import oracle.jdbc.driver.OracleTypes;
+import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
-import oracle.jdbc.driver.OracleCallableStatement;
-import oracle.jdbc.driver.OracleDriver;
-import oracle.jdbc.driver.OracleTypes;
 
-
+@Component
 public class CursorComponent {
+    public CursorResponse cursor(CursorRequest request){
 
-    public static void main ( String[] args )
-    {
+        CursorResponse response = new CursorResponse();
 
-        try
-        {
+        try{
+            // Load the driver
             DriverManager.registerDriver(new OracleDriver());
+
+            // Connect to the database
+            // You can put a database name after the @ sign in the connection URL.
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
             Connection conn = DriverManager.getConnection(url, "mlm", "mlm");
-            String sql = "{ ? = call mlm.WEBSERVICE.kab_kln_pass(?,?,?) }";
+            // Prepare a PL/SQL call
+            String sql = "{ ? = call WEBSERVICE.kab_kln_docs(?) }";
             CallableStatement callableStatement = conn.prepareCall(sql);
-            OracleCallableStatement ocst;
-            ResultSet rs;
-            // TODO change cursor calling method
-            callableStatement = conn.prepareCall
-                    ( "BEGIN generic_ref_cursor.get_ref_cursor ( ?, ? ); END;" );
-            callableStatement.setString ( 1, "SELECT sal FROM emp" );
-            callableStatement.registerOutParameter ( 2, OracleTypes.CURSOR );
 
-            callableStatement.execute ( );
+            // Find out all the SALES person
+            callableStatement.setString(2, request.getInn());
 
-            ocst = ( OracleCallableStatement ) callableStatement;
+            callableStatement.registerOutParameter (1, OracleTypes.CURSOR);
 
-            rs = ocst.getCursor ( 2 );
+            callableStatement.execute ();
 
-            while ( rs.next
-                    ( ) ) { System.out.println ( rs.getInt ( 1 ) ); }
+            ResultSet rset = (ResultSet)callableStatement.getObject (1);
 
-            /* Новый запрос ... */
-            callableStatement.setString ( 1, "SELECT dname, loc FROM dept" );
-            callableStatement.execute       ( );
-            rs = ocst.getCursor ( 2 );
-            while ( rs.next ( ) )
-            { System.out.println ( rs.getString ( 1 ) + rs.getString ( 2 ) ); }
+            // Dump the cursor
+//            while (rset.next ())
+//                System.out.println (rset.getString ("COL1"));
+//                System.out.println (rset.getString ("COL2"));
+//                System.out.println (rset.getString ("COL3"));
+//                System.out.println (rset.getString ("COL4"));
+//                System.out.println (rset.getString ("COL5"));
+//                System.out.println (rset.getString ("COL6"));
+//                System.out.println (rset.getString ("COL7"));
+//                System.out.println (rset.getString ("COL8"));
 
-            /* ... и так далее, запрос за запросом */
-            callableStatement.close ( );
+            // Close all the resources
+            rset.close();
+            callableStatement.close();
+            conn.close();
+
+        } catch (Exception ex) {
+        ex.printStackTrace();
         }
-        catch ( Exception e ){
-            System.out.println ( e );
-        }
+
+        return response;
     }
 }
 

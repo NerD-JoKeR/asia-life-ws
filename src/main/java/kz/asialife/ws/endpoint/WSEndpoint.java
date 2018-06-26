@@ -5,6 +5,8 @@ import kz.asialife.ws.AuthorizationRequest;
 import kz.asialife.ws.AuthorizationResponse;
 import kz.asialife.ws.ChangePasswordRequest;
 import kz.asialife.ws.ChangePasswordResponse;
+import kz.asialife.ws.CursorRequest;
+import kz.asialife.ws.CursorResponse;
 import kz.asialife.ws.KazinaRequest;
 import kz.asialife.ws.KazinaResponse;
 import kz.asialife.ws.MstRequest;
@@ -18,6 +20,7 @@ import kz.asialife.ws.components.calculator.CalculatorKazinaComponent;
 import kz.asialife.ws.components.calculator.CalculatorMstComponent;
 import kz.asialife.ws.components.calculator.CalculatorOSRNSComponent;
 import kz.asialife.ws.components.changePassword.ChangePasswordComponent;
+import kz.asialife.ws.components.cursor.CursorComponent;
 import kz.asialife.ws.components.registration.MstRegistrationComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -49,6 +52,8 @@ public class WSEndpoint {
     @Autowired
     private CalculatorKazinaComponent calculatorKazinaComponent;
 
+    @Autowired
+    private CursorComponent cursorComponent;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authorizationRequest")
     @ResponsePayload
@@ -88,4 +93,11 @@ public class WSEndpoint {
     public RegMstResponse regMstRequest(@RequestPayload RegMstRequest request) {
         return mstRegistrationComponent.mst(request);
     }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorRequest")
+    @ResponsePayload
+    public CursorResponse cursorRequest(@RequestPayload CursorRequest request) {
+        return cursorComponent.cursor(request);
+    }
+
 }

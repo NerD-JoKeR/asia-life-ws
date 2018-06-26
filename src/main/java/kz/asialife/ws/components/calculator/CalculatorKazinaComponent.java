@@ -20,7 +20,7 @@ public class CalculatorKazinaComponent {
             DriverManager.registerDriver(new OracleDriver());
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
             Connection conn = DriverManager.getConnection(url, "mlm", "mlm");
-            String sql = "{ ? = call WEBSERVICE.calc_kazina(?,?,?,?,?,?,?,?,?,?,?,?) }";
+            String sql = "{ ? = call WEBSERVICE.calc_kazina(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
             CallableStatement callableStatement = conn.prepareCall(sql);
             callableStatement.setString(2, request.getPeriodichnost());
             callableStatement.setString(3, request.getSex());
@@ -34,23 +34,26 @@ public class CalculatorKazinaComponent {
             callableStatement.setInt(11, request.getTD());
             callableStatement.setInt(12, request.getHD());
 
-            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
-            callableStatement.registerOutParameter(7, java.sql.Types.INTEGER);
-            callableStatement.registerOutParameter(8, java.sql.Types.INTEGER);
-            callableStatement.registerOutParameter(9, java.sql.Types.INTEGER);
-            callableStatement.registerOutParameter(10, java.sql.Types.INTEGER);
-            callableStatement.registerOutParameter(11, java.sql.Types.INTEGER);
-            callableStatement.registerOutParameter(12, java.sql.Types.INTEGER);
+
+            callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(13, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(14, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(15, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(16, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(17, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(18, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(19, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
             //this is the main line
-            response.setNumber(callableStatement.getInt(1));
-            response.setOutADB(callableStatement.getInt(7));
-            response.setOutATPD(callableStatement.getInt(8));
-            response.setOutTT(callableStatement.getInt(9));
-            response.setOutCI(callableStatement.getInt(10));
-            response.setOutTD(callableStatement.getInt(11));
-            response.setOutHD(callableStatement.getInt(12));
+            response.setNumber(callableStatement.getString(1));
+            response.setOutADB(callableStatement.getString(13));
+            response.setOutATPD(callableStatement.getString(14));
+            response.setOutTT(callableStatement.getString(15));
+            response.setOutCI(callableStatement.getString(16));
+            response.setOutTD(callableStatement.getString(17));
+            response.setOutHD(callableStatement.getString(18));
+            response.setOutTPD(callableStatement.getString(19));
 
 
         } catch (Exception ex) {
