@@ -14,6 +14,7 @@ public class AuthorizationComponent {
     public AuthorizationResponse authorize(AuthorizationRequest request){
 
         AuthorizationResponse response = new AuthorizationResponse();
+        //TODO finally close conn & callableStatement
         try {
 
             DriverManager.registerDriver(new OracleDriver());

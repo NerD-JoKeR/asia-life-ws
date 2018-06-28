@@ -94,7 +94,6 @@
                 </executions>
                 <configuration>
                     <schemaDirectory>${project.basedir}/src/main/resources/schema/</schemaDirectory>
-                    <outputDirectory>${project.basedir}/src/main/java/generated</outputDirectory>
                     <clearOutputDir>false</clearOutputDir>
                 </configuration>
             </plugin>

@@ -1,27 +1,24 @@
-package kz.asialife.ws.components.changePassword;
+package kz.asialife.ws.components.common;
 
-import kz.asialife.ws.ChangePasswordRequest;
-import kz.asialife.ws.ChangePasswordResponse;
+import kz.asialife.ws.CommonRequest;
 import kz.asialife.ws.CommonResponse;
-import kz.asialife.ws.components.common.CommonComponent;
-import org.springframework.stereotype.Component;
+import oracle.jdbc.driver.OracleDriver;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import oracle.jdbc.driver.OracleDriver;
+public class CommonComponent {
 
-@Component
-public class ChangePasswordComponent extends CommonComponent {
-    public ChangePasswordResponse changePassword(ChangePasswordRequest request){
-        CommonResponse commonResponse = checkSession(request);
-        if(commonResponse != null){
-            return (ChangePasswordResponse)commonResponse;
+    public CommonResponse checkSession(CommonRequest request){
+        CommonResponse response = new CommonResponse();
+        String sessionId = request.getSessionId();
+        if(sessionId == null){
+            response.setSuccess(false);
+            response.setMessage("Ne predostavlen session id");
+            return response;
         }
-
-        ChangePasswordResponse response = new ChangePasswordResponse();
 
         Connection conn = null;
         CallableStatement callableStatement = null;
@@ -33,17 +30,21 @@ public class ChangePasswordComponent extends CommonComponent {
 
             String sql = "{ ? = call mlm.WEBSERVICE.kab_kln_pass(?,?,?) }";
             callableStatement = conn.prepareCall(sql);
-            callableStatement.setString(2, request.getIin());
-            callableStatement.setString(3, request.getPassword());
-            callableStatement.setString(4, request.getOldPass());
+            callableStatement.setString(2, request.getSessionId());
 
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
-            //this is the main line
-            response.setResult(callableStatement.getString(1));
 
-            callableStatement.close();
+            String sessionStatus = callableStatement.getString(1);
+            if(sessionStatus.equals("BLOCKED")){
+                response.setSuccess(false);
+                response.setMessage("Sessia zablokirovana");
+            } else if(sessionStatus.equals("EXPIRED")){
+                response.setSuccess(false);
+                response.setMessage("Sessia istekla");
+            }
+
             conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -56,6 +57,8 @@ public class ChangePasswordComponent extends CommonComponent {
             }
         }
 
-        return response;
+
+        return null;
     }
+
 }

@@ -1,6 +1,19 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:asia="http://asialife.kz/ws"
            targetNamespace="http://asialife.kz/ws" elementFormDefault="qualified">
 
+    <xs:complexType name="commonRequest">
+        <xs:sequence>
+            <xs:element type="xs:string" name="sessionId"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="commonResponse">
+        <xs:sequence>
+            <xs:element type="xs:boolean" name="success" default="true"/>
+            <xs:element type="xs:string" name="message"/>
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:element name="authorizationRequest">
         <xs:complexType>
             <xs:sequence>
@@ -24,26 +37,30 @@
     </xs:element>
 
 
-    <xs:element name="changePasswordRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="iin" type="xs:string"/>
-                <xs:element name="password" type="xs:string"/>
-                <xs:element name="oldPass" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <xs:complexType name="changePasswordRequest">
+        <xs:complexContent>
+            <xs:extension base="asia:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="iin" type="xs:string"/>
+                        <xs:element name="password" type="xs:string"/>
+                        <xs:element name="oldPass" type="xs:string"/>
+                    </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
 
-    <xs:element name="changePasswordResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="iin" type="xs:string"/>
-                <xs:element name="password" type="xs:string"/>
-                <xs:element name="oldPass" type="xs:string"/>
-                <xs:element name="result" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <xs:complexType name="changePasswordResponse">
+        <xs:complexContent>
+            <xs:extension base="asia:commonResponse">
+                <xs:sequence>
+                    <xs:element name="iin" type="xs:string"/>
+                    <xs:element name="password" type="xs:string"/>
+                    <xs:element name="oldPass" type="xs:string"/>
+                    <xs:element name="result" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
 
 
     <xs:element name="osrnsRequest">
