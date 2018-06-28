@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+// TODO ask about component annotation here
+
 public class CommonComponent {
 
     public CommonResponse checkSession(CommonRequest request){
@@ -16,7 +18,7 @@ public class CommonComponent {
         String sessionId = request.getSessionId();
         if(sessionId == null){
             response.setSuccess(false);
-            response.setMessage("Ne predostavlen session id");
+            response.setMessage("Session ID is empty. Please try to sign in again! ");
             return response;
         }
 
@@ -37,12 +39,13 @@ public class CommonComponent {
             callableStatement.execute();
 
             String sessionStatus = callableStatement.getString(1);
+            //TODO in DB create session statuses by this names below
             if(sessionStatus.equals("BLOCKED")){
                 response.setSuccess(false);
-                response.setMessage("Sessia zablokirovana");
+                response.setMessage("Sessiion is blocked");
             } else if(sessionStatus.equals("EXPIRED")){
                 response.setSuccess(false);
-                response.setMessage("Sessia istekla");
+                response.setMessage("Session is expired");
             }
 
             conn.close();
