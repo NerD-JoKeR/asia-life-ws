@@ -1,25 +1,29 @@
 package kz.asialife.ws.components.cursor;
 
 
-import kz.asialife.ws.CursorRequest;
-import kz.asialife.ws.CursorResponse;
-import java.sql.DriverManager;
+import kz.asialife.ws.*;
 
-import kz.asialife.ws.Document;
+import java.sql.*;
+
+import kz.asialife.ws.components.common.CommonComponent;
 import oracle.jdbc.driver.OracleDriver;
 import oracle.jdbc.driver.OracleTypes;
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-
 
 @Component
-public class CursorComponent {
+public class CursorComponent extends CommonComponent {
     public CursorResponse cursor(CursorRequest request){
 
+        CommonResponse commonResponse = checkSession(request);
+        if(commonResponse != null){
+            return (CursorResponse)commonResponse;
+        }
+
         CursorResponse response = new CursorResponse();
+
+        Connection conn = null;
+        CallableStatement callableStatement = null;
 
         try{
             // Load the driver
@@ -27,10 +31,13 @@ public class CursorComponent {
 
             // Connect to the database
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
-            Connection conn = DriverManager.getConnection(url, "mlm", "mlm");
+
+            conn = DriverManager.getConnection(url, "mlm", "mlm");
+
             // Prepare a PL/SQL call
             String sql = "{ ? = call WEBSERVICE.kab_kln_docs(?) }";
-            CallableStatement callableStatement = conn.prepareCall(sql);
+
+            callableStatement = conn.prepareCall(sql);
 
             callableStatement.setString(2, request.getInn());
 
@@ -67,6 +74,13 @@ public class CursorComponent {
 
         } catch (Exception ex) {
         ex.printStackTrace();
+        } finally {
+            try {
+                callableStatement.close();
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return response;

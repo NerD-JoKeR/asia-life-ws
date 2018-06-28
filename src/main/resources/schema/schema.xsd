@@ -1,11 +1,13 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:asia="http://asialife.kz/ws"
            targetNamespace="http://asialife.kz/ws" elementFormDefault="qualified">
 
+
     <xs:complexType name="commonRequest">
         <xs:sequence>
             <xs:element type="xs:string" name="sessionId"/>
         </xs:sequence>
     </xs:complexType>
+
 
     <xs:complexType name="commonResponse">
         <xs:sequence>
@@ -13,6 +15,8 @@
             <xs:element type="xs:string" name="message"/>
         </xs:sequence>
     </xs:complexType>
+
+
 
     <xs:element name="authorizationRequest">
         <xs:complexType>
@@ -23,6 +27,7 @@
         </xs:complexType>
     </xs:element>
 
+
     <xs:element name="authorizationResponse">
         <xs:complexType>
             <xs:sequence>
@@ -32,9 +37,11 @@
                 <xs:element name="phone" type="xs:string"/>
                 <xs:element name="email" type="xs:string"/>
                 <xs:element name="result" type="xs:string"/>
+                <xs:element name="sessionId" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
 
 
     <xs:complexType name="changePasswordRequest">
@@ -48,6 +55,7 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
+
 
     <xs:complexType name="changePasswordResponse">
         <xs:complexContent>
@@ -63,163 +71,196 @@
     </xs:complexType>
 
 
-    <xs:element name="osrnsRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="oked" type="xs:int"/>
-                <xs:element name="yearFond" type="xs:double"/>
-                <xs:element name="col_sotr" type="xs:int"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
 
-    <xs:element name="osrnsResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="premKz" type="xs:string"/>
-                <xs:element name="sumStrahKz" type="xs:string"/>
-                <xs:element name="err" type="xs:string"/>
-                <xs:element name="result" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <xs:complexType name="osrnsRequest">
+        <xs:complexContent>
+            <xs:extension base="asia:commonRequest">
+                <xs:sequence>
+                    <xs:element name="oked" type="xs:int"/>
+                    <xs:element name="yearFond" type="xs:double"/>
+                    <xs:element name="col_sotr" type="xs:int"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
 
 
-    <xs:element name="mstRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="country1" type="xs:int"/>
-                <xs:element name="country2" type="xs:int"/>
-                <xs:element name="country3" type="xs:int"/>
-                <xs:element name="sumStrah" type="xs:int"/>
-                <xs:element name="insuranceProgramm" type="xs:int"/>
-                <xs:element name="beginDate" type="xs:string"/>
-                <xs:element name="endDate" type="xs:string"/>
-                <xs:element name="birthDate" type="xs:string"/>
-                <xs:element name="rprogSrok" type="xs:int"/>
-                <xs:element name="rprogMaxDays" type="xs:int"/>
-                <xs:element name="email" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="mstResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="premKz" type="xs:string"/>
-                <xs:element name="kurs" type="xs:string"/>
-                <xs:element name="sumStrahKz" type="xs:string"/>
-                <xs:element name="premEur" type="xs:string"/>
-                <xs:element name="err" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <xs:complexType name="osrnsResponse">
+        <xs:complexContent>
+            <xs:extension base="asia:commonResponse">
+                <xs:sequence>
+                    <xs:element name="premKz" type="xs:string"/>
+                    <xs:element name="sumStrahKz" type="xs:string"/>
+                    <xs:element name="err" type="xs:string"/>
+                    <xs:element name="result" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
 
 
-    <xs:element name="kazinaRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="periodichnost" type="xs:string"/>
-                <xs:element name="sex" type="xs:string"/>
-                <xs:element name="clnYears" type="xs:int"/>
-                <xs:element name="srokYears" type="xs:int"/>
-                <xs:element name="strSum" type="xs:int"/>
-                <xs:element name="ADB" type="xs:int"/>
-                <xs:element name="ATPD" type="xs:int"/>
-                <xs:element name="TT" type="xs:int"/>
-                <xs:element name="CI" type="xs:int"/>
-                <xs:element name="TD" type="xs:int"/>
-                <xs:element name="HD" type="xs:int"/>
-                <xs:element name="TPD" type="xs:int"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
 
-    <xs:element name="kazinaResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="number" type="xs:string"/>
-                <xs:element name="OutADB" type="xs:string"/>
-                <xs:element name="OutATPD" type="xs:string"/>
-                <xs:element name="OutTT" type="xs:string"/>
-                <xs:element name="OutCI" type="xs:string"/>
-                <xs:element name="OutTD" type="xs:string"/>
-                <xs:element name="OutHD" type="xs:string"/>
-                <xs:element name="OutTPD" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <xs:complexType name="mstRequest">
+            <xs:complexContent>
+                <xs:extension base="asia:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="country1" type="xs:int"/>
+                        <xs:element name="country2" type="xs:int"/>
+                        <xs:element name="country3" type="xs:int"/>
+                        <xs:element name="sumStrah" type="xs:int"/>
+                        <xs:element name="insuranceProgramm" type="xs:int"/>
+                        <xs:element name="beginDate" type="xs:string"/>
+                        <xs:element name="endDate" type="xs:string"/>
+                        <xs:element name="birthDate" type="xs:string"/>
+                        <xs:element name="rprogSrok" type="xs:int"/>
+                        <xs:element name="rprogMaxDays" type="xs:int"/>
+                        <xs:element name="email" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+    </xs:complexType>
 
 
-    <xs:element name="regMstRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="country1" type="xs:int"/>
-                <xs:element name="rprogramm" type="xs:int"/>
-                <xs:element name="rprogSrok" type="xs:int"/>
-                <xs:element name="progMaxDays" type="xs:int"/>
-                <xs:element name="dateStart" type="xs:string"/>
-                <xs:element name="dateEnd" type="xs:string"/>
-                <xs:element name="curRate" type="xs:int"/>
-                <xs:element name="fioKir" type="xs:string"/>
-                <xs:element name="fioLat" type="xs:string"/>
-                <xs:element name="inn" type="xs:string"/>
-                <xs:element name="resId" type="xs:string"/>
-                <xs:element name="address" type="xs:string"/>
-                <xs:element name="sex" type="xs:string"/>
-                <xs:element name="dateBirth" type="xs:string"/>
-                <xs:element name="region" type="xs:int"/>
-                <xs:element name="fioKir2" type="xs:string"/>
-                <xs:element name="fioLat2" type="xs:string"/>
-                <xs:element name="iin2" type="xs:string"/>
-                <xs:element name="resId2" type="xs:string"/>
-                <xs:element name="address2" type="xs:string"/>
-                <xs:element name="sex2" type="xs:string"/>
-                <xs:element name="dateBirth2" type="xs:string"/>
-                <xs:element name="region2" type="xs:int"/>
-                <xs:element name="passportNum" type="xs:string"/>
-                <xs:element name="passportGive" type="xs:string"/>
-                <xs:element name="passportDate" type="xs:string"/>
-                <xs:element name="passportDateEnd" type="xs:string"/>
-                <xs:element name="doc_type" type="xs:int"/>
-                <xs:element name="passportNum2" type="xs:string"/>
-                <xs:element name="passportGive2" type="xs:string"/>
-                <xs:element name="passportDate2" type="xs:string"/>
-                <xs:element name="passportDateEnd2" type="xs:string"/>
-                <xs:element name="mobilePhone" type="xs:string"/>
-                <xs:element name="phone" type="xs:string"/>
-                <xs:element name="email" type="xs:string"/>
-                <xs:element name="mobilePhone2" type="xs:string"/>
-                <xs:element name="phone2" type="xs:string"/>
-                <xs:element name="email2" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="regMstResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="message" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <xs:complexType name="mstResponse">
+        <xs:complexContent>
+            <xs:extension base="asia:commonResponse">
+                <xs:sequence>
+                    <xs:element name="premKz" type="xs:string"/>
+                    <xs:element name="kurs" type="xs:string"/>
+                    <xs:element name="sumStrahKz" type="xs:string"/>
+                    <xs:element name="premEur" type="xs:string"/>
+                    <xs:element name="err" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
 
 
-    <xs:element name="cursorRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="inn" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
 
-    <xs:element name="cursorResponse">
-        <xs:complexType>
-            <xs:sequence minOccurs="0" maxOccurs="unbounded">
-                <xs:element name="cursor" type="asia:document" />
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+
+    <xs:complexType name="kazinaRequest">
+        <xs:complexContent>
+            <xs:extension base="asia:commonRequest">
+                <xs:sequence>
+                    <xs:element name="periodichnost" type="xs:string"/>
+                    <xs:element name="sex" type="xs:string"/>
+                    <xs:element name="clnYears" type="xs:int"/>
+                    <xs:element name="srokYears" type="xs:int"/>
+                    <xs:element name="strSum" type="xs:int"/>
+                    <xs:element name="ADB" type="xs:int"/>
+                    <xs:element name="ATPD" type="xs:int"/>
+                    <xs:element name="TT" type="xs:int"/>
+                    <xs:element name="CI" type="xs:int"/>
+                    <xs:element name="TD" type="xs:int"/>
+                    <xs:element name="HD" type="xs:int"/>
+                    <xs:element name="TPD" type="xs:int"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="kazinaResponse">
+        <xs:complexContent>
+            <xs:extension base="asia:commonResponse">
+                <xs:sequence>
+                    <xs:element name="number" type="xs:string"/>
+                    <xs:element name="OutADB" type="xs:string"/>
+                    <xs:element name="OutATPD" type="xs:string"/>
+                    <xs:element name="OutTT" type="xs:string"/>
+                    <xs:element name="OutCI" type="xs:string"/>
+                    <xs:element name="OutTD" type="xs:string"/>
+                    <xs:element name="OutHD" type="xs:string"/>
+                    <xs:element name="OutTPD" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+
+
+    <xs:complexType  name="regMstRequest">
+        <xs:complexContent>
+            <xs:extension base="asia:commonRequest">
+                <xs:sequence>
+                    <xs:element name="country1" type="xs:int"/>
+                    <xs:element name="rprogramm" type="xs:int"/>
+                    <xs:element name="rprogSrok" type="xs:int"/>
+                    <xs:element name="progMaxDays" type="xs:int"/>
+                    <xs:element name="dateStart" type="xs:string"/>
+                    <xs:element name="dateEnd" type="xs:string"/>
+                    <xs:element name="curRate" type="xs:int"/>
+                    <xs:element name="fioKir" type="xs:string"/>
+                    <xs:element name="fioLat" type="xs:string"/>
+                    <xs:element name="inn" type="xs:string"/>
+                    <xs:element name="resId" type="xs:string"/>
+                    <xs:element name="address" type="xs:string"/>
+                    <xs:element name="sex" type="xs:string"/>
+                    <xs:element name="dateBirth" type="xs:string"/>
+                    <xs:element name="region" type="xs:int"/>
+                    <xs:element name="fioKir2" type="xs:string"/>
+                    <xs:element name="fioLat2" type="xs:string"/>
+                    <xs:element name="iin2" type="xs:string"/>
+                    <xs:element name="resId2" type="xs:string"/>
+                    <xs:element name="address2" type="xs:string"/>
+                    <xs:element name="sex2" type="xs:string"/>
+                    <xs:element name="dateBirth2" type="xs:string"/>
+                    <xs:element name="region2" type="xs:int"/>
+                    <xs:element name="passportNum" type="xs:string"/>
+                    <xs:element name="passportGive" type="xs:string"/>
+                    <xs:element name="passportDate" type="xs:string"/>
+                    <xs:element name="passportDateEnd" type="xs:string"/>
+                    <xs:element name="doc_type" type="xs:int"/>
+                    <xs:element name="passportNum2" type="xs:string"/>
+                    <xs:element name="passportGive2" type="xs:string"/>
+                    <xs:element name="passportDate2" type="xs:string"/>
+                    <xs:element name="passportDateEnd2" type="xs:string"/>
+                    <xs:element name="mobilePhone" type="xs:string"/>
+                    <xs:element name="phone" type="xs:string"/>
+                    <xs:element name="email" type="xs:string"/>
+                    <xs:element name="mobilePhone2" type="xs:string"/>
+                    <xs:element name="phone2" type="xs:string"/>
+                    <xs:element name="email2" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="regMstResponse">
+        <xs:complexContent>
+            <xs:extension base="asia:commonResponse">
+                <xs:sequence>
+                    <xs:element name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+
+    <xs:complexType name="cursorRequest">
+        <xs:complexContent>
+            <xs:extension base="asia:commonRequest">
+                <xs:sequence>
+                    <xs:element name="inn" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="cursorResponse">
+        <xs:complexContent>
+            <xs:extension base="asia:commonResponse">
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="cursor" type="asia:document" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
 
     <xs:complexType name="document">
         <xs:sequence>
