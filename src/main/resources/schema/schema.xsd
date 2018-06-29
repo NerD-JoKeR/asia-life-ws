@@ -1,5 +1,5 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:asia="http://asialife.kz/ws"
-           targetNamespace="http://asialife.kz/ws" elementFormDefault="qualified">
+           targetNamespace="http://asialife.kz/ws" elementFormDefault="qualified" >
 
     <xs:element name="authorizationRequest">
         <xs:complexType>
@@ -199,7 +199,7 @@
     <xs:element name="cursorResponse">
         <xs:complexType>
             <xs:sequence minOccurs="0" maxOccurs="unbounded">
-                <xs:element name="cursor" type="asia:document" />
+                <xs:element name="document" type="asia:document" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>

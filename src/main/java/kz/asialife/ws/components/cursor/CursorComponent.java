@@ -57,7 +57,7 @@ public class CursorComponent {
                 document.setCol6(col6);
                 document.setCol7(col7);
                 document.setCol8(col8);
-                response.getCursor().add(document);
+                response.getDocument().add(document);
             }
             rs.getArray(0);
 
