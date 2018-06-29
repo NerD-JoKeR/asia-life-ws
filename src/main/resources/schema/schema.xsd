@@ -1,0 +1,96 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:asia="http://asialife.kz/banks"
+           targetNamespace="http://asialife.kz/banks" elementFormDefault="qualified">
+
+
+    <xs:complexType name="commonRequest">
+        <xs:sequence>
+            <xs:element type="xs:string" name="sessionId"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="commonResponse">
+        <xs:sequence>
+            <xs:element type="xs:boolean" name="success" default="true"/>
+            <xs:element type="xs:string" name="message"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:element name="authorizationWSRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="login" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="authorizationWSResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="sessionId" type="xs:string"/>
+                <xs:element name="result" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="Request">
+        <xs:complexContent>
+            <xs:extension base="asia:commonRequest">
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="sessionId" type="xs:string" />
+                    <xs:element name="docRequest" type="asia:document" />
+                    <xs:element name="payRequest" type="asia:payment" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="Response">
+        <xs:complexContent>
+            <xs:extension base="asia:commonResponse">
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="docResponse" type="asia:documentResponse" />
+                    <xs:element name="payResponse" type="asia:paymentResponse" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="document">
+        <xs:sequence>
+            <xs:element name="info" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="payment">
+        <xs:sequence>
+            <xs:element name="docNumber" type="xs:string" />
+            <xs:element name="sum" type="xs:string" />
+            <xs:element name="status" type="xs:string" />
+            <xs:element name="message" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="documentResponse">
+        <xs:sequence>
+            <xs:element name="status" type="xs:string" />
+            <xs:element name="docNumber" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="paymentResponse">
+        <xs:sequence>
+            <xs:element name="status" type="xs:string" />
+            <xs:element name="docNumber" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+
+</xs:schema>
