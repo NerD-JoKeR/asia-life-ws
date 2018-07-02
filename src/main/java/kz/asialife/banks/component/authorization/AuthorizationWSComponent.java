@@ -37,13 +37,11 @@ public class AuthorizationWSComponent {
             callableStatement.setString(3, request.getPassword());
 
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
-            // callableStatement.registerOutParameter(4, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
 
             //this is the main line
             response.setSessionId(callableStatement.getString(1));
-            //response.setResult(callableStatement.getString(4));
 
             callableStatement.close();
             conn.close();
