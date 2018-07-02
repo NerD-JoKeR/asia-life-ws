@@ -15,6 +15,7 @@ import java.sql.SQLException;
 
 @Component
 public class PaymentComponent extends CommonComponent {
+
     public PaymentResponse payment(PaymentRequest request) {
 
         CommonResponse commonResponse = checkSession(request);
@@ -46,6 +47,7 @@ public class PaymentComponent extends CommonComponent {
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
+
             //this is the main line to the return response
             response.setState(callableStatement.getString(1));
             response.getMessage();

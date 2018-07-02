@@ -29,7 +29,7 @@ public class CommonComponent {
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{ ? = call mlm.WEBSERVICE.kab_kln_pass(?,?,?) }";
+            String sql = "{ ? = call mlm.WEBSERVICE.activ_session(?,?) }";
             callableStatement = conn.prepareCall(sql);
             callableStatement.setString(2, request.getSessionId());
 
@@ -38,13 +38,18 @@ public class CommonComponent {
             callableStatement.execute();
 
             String sessionStatus = callableStatement.getString(1);
+
             //TODO in DB create session statuses by this names below
+
             if(sessionStatus.equals("BLOCKED")){
                 response.setSuccess(false);
                 response.setMessage("Sessiion is blocked");
             } else if(sessionStatus.equals("EXPIRED")){
                 response.setSuccess(false);
                 response.setMessage("Session is expired");
+            } else if(sessionStatus.equals("ERROR")){
+                response.setSuccess(false);
+                response.setMessage("Session is empty");
             }
 
             conn.close();
@@ -58,7 +63,6 @@ public class CommonComponent {
                 e.printStackTrace();
             }
         }
-
 
         return null;
     }
