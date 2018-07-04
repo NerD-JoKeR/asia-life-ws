@@ -5,6 +5,9 @@ import kz.asialife.ws.*;
 
 import java.sql.*;
 
+import kz.asialife.ws.CommonResponse;
+import kz.asialife.ws.CursorRequest;
+import kz.asialife.ws.CursorResponse;
 import kz.asialife.ws.components.common.CommonComponent;
 import oracle.jdbc.driver.OracleDriver;
 import oracle.jdbc.driver.OracleTypes;
@@ -46,6 +49,7 @@ public class CursorComponent extends CommonComponent {
             callableStatement.execute ();
 
             ResultSet rs = (ResultSet)callableStatement.getObject (1);
+            response.setSuccess(true);
             while (rs.next()) {
                 String col1 = rs.getString("COL1");
                 String col2 = rs.getString("COL2");
@@ -64,7 +68,7 @@ public class CursorComponent extends CommonComponent {
                 document.setCol6(col6);
                 document.setCol7(col7);
                 document.setCol8(col8);
-                response.getDocument().add(document);
+                response.getCursor().add(document);
             }
             rs.getArray(0);
 

@@ -16,6 +16,7 @@ import kz.asialife.ws.OsrnsResponse;
 import kz.asialife.ws.RegMstRequest;
 import kz.asialife.ws.RegMstResponse;
 import kz.asialife.ws.components.authorization.AuthorizationComponent;
+import kz.asialife.ws.components.authorization.AuthorizationWSComponent;
 import kz.asialife.ws.components.calculator.CalculatorKazinaComponent;
 import kz.asialife.ws.components.calculator.CalculatorMstComponent;
 import kz.asialife.ws.components.calculator.CalculatorOSRNSComponent;
@@ -32,6 +33,9 @@ import org.springframework.ws.soap.SoapHeaderElement;
 @Endpoint
 public class WSEndpoint {
     private static final String NAMESPACE_URI = "http://asialife.kz/ws";
+
+    @Autowired
+    private AuthorizationWSComponent authorizationWSComponent;
 
     @Autowired
     private AuthorizationComponent authorizationComponent;
@@ -54,6 +58,15 @@ public class WSEndpoint {
 
     @Autowired
     private CursorComponent cursorComponent;
+
+
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authorizationWSRequest")
+    @ResponsePayload
+    public AuthorizationWSResponse authorizationWSRequest(@RequestPayload AuthorizationWSRequest request) {
+        return authorizationWSComponent.authorizeWS(request);
+    }
+
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authorizationRequest")
     @ResponsePayload

@@ -74,6 +74,7 @@ public class CalculatorKazinaComponent extends CommonComponent {
             response.setOutTD(callableStatement.getString(17));
             response.setOutHD(callableStatement.getString(18));
             response.setOutTPD(callableStatement.getString(19));
+            response.setSuccess(true);
 
             callableStatement.close();
             conn.close();

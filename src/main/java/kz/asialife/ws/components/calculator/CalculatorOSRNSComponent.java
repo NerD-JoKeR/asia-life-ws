@@ -56,6 +56,7 @@ public class CalculatorOSRNSComponent extends CommonComponent {
             response.setPremKz(callableStatement.getString(1));
             response.setSumStrahKz(String.valueOf(callableStatement.getDouble(5)));
             response.setErr(callableStatement.getString(6));
+            response.setSuccess(true);
 
             callableStatement.close();
             conn.close();

@@ -42,6 +42,7 @@ public class ChangePasswordComponent extends CommonComponent {
             callableStatement.execute();
             //this is the main line
             response.setResult(callableStatement.getString(1));
+            response.setSuccess(true);
 
             callableStatement.close();
             conn.close();

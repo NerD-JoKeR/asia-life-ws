@@ -2,6 +2,8 @@ package kz.asialife.ws.components.authorization;
 
 import kz.asialife.ws.AuthorizationRequest;
 import kz.asialife.ws.AuthorizationResponse;
+import kz.asialife.ws.CommonResponse;
+import kz.asialife.ws.components.common.CommonComponent;
 import org.springframework.stereotype.Component;
 
 import java.sql.CallableStatement;
@@ -12,8 +14,15 @@ import java.sql.SQLException;
 import oracle.jdbc.driver.OracleDriver;
 
 @Component
-public class AuthorizationComponent {
+public class AuthorizationComponent  extends CommonComponent {
+
     public AuthorizationResponse authorize(AuthorizationRequest request){
+
+        CommonResponse commonResponse = checkSession(request);
+        if(commonResponse != null){
+            return (AuthorizationResponse) commonResponse;
+        }
+
 
         AuthorizationResponse response = new AuthorizationResponse();
 
@@ -46,6 +55,7 @@ public class AuthorizationComponent {
             response.setFio(callableStatement.getString(4));
             response.setPhone(callableStatement.getString(5));
             response.setEmail(callableStatement.getString(6));
+            response.setSuccess(true);
 
             callableStatement.close();
             conn.close();

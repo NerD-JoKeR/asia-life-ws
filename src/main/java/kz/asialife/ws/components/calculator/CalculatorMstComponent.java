@@ -76,6 +76,7 @@ public class CalculatorMstComponent extends CommonComponent {
             response.setSumStrahKz(callableStatement.getString(15));
             response.setPremEur(callableStatement.getString(16));
             response.setErr(callableStatement.getString(17));
+            response.setSuccess(true);
 
             callableStatement.close();
             conn.close();

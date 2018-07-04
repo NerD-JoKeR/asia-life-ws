@@ -1,4 +1,4 @@
-package kz.asialife.banks.config;
+package kz.asialife.ws.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -12,17 +12,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String REALM_NAME = "asialife";
 
-    @Value("${security.user.name.bcc}")
-    private String bccUsername;
-
-    @Value("${security.user.password.bcc}")
-    private String bccPassword;
-
-    @Value("${security.user.name.kaspi}")
-    private String kaspiUsername;
-
-    @Value("${security.user.password.kaspi}")
-    private String kaspiPassword;
 
     @Value("${security.user.name.asia}")
     private String asiaUsername;
@@ -48,10 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser(bccUsername).password(bccPassword).roles("BCC")
-                .and()
-                .withUser(kaspiUsername).password(kaspiPassword).roles("KASPI")
-                .and()
                 .withUser(asiaUsername).password(asiaPassword).roles("ASIA");
     }
 

@@ -1,4 +1,4 @@
-package kz.asialife.banks.config;
+package kz.asialife.ws.config;
 
 
 import org.springframework.http.MediaType;

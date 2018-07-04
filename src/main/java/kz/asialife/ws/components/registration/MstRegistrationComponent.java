@@ -97,6 +97,8 @@ public class MstRegistrationComponent extends CommonComponent {
             callableStatement.execute();
             //this is the main line
             response.setMessage(callableStatement.getString(1));
+            response.setSuccess(true);
+
 
             callableStatement.close();
             conn.close();
