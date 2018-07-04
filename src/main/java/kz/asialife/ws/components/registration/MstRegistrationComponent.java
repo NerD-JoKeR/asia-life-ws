@@ -1,24 +1,38 @@
 package kz.asialife.ws.components.registration;
 
 
+import kz.asialife.ws.CommonResponse;
+import kz.asialife.ws.MstResponse;
 import kz.asialife.ws.RegMstRequest;
 import kz.asialife.ws.RegMstResponse;
+import kz.asialife.ws.components.common.CommonComponent;
 import oracle.jdbc.driver.OracleDriver;
 import org.springframework.stereotype.Component;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
-public class MstRegistrationComponent {
+public class MstRegistrationComponent extends CommonComponent {
     public RegMstResponse mst(RegMstRequest request){
+
+        CommonResponse commonResponse = checkSession(request);
+        if(commonResponse != null){
+            return (RegMstResponse)commonResponse;
+        }
+
         DateFormat sourceFormat = new SimpleDateFormat("dd.MM.yyyy");
 
         RegMstResponse response = new RegMstResponse();
+
+        Connection conn = null;
+        CallableStatement callableStatement = null;
+
         try {
             Date begin = sourceFormat.parse(request.getDateStart());
             Date end = sourceFormat.parse(request.getDateEnd());
@@ -30,10 +44,15 @@ public class MstRegistrationComponent {
             Date passportEnd2 = sourceFormat.parse(request.getPassportDateEnd2());
 
             DriverManager.registerDriver(new OracleDriver());
+
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
-            Connection conn = DriverManager.getConnection(url, "mlm", "mlm");
+
+            conn = DriverManager.getConnection(url, "mlm", "mlm");
+
             String sql = "{ ? = call WEBSERVICE.reg_mst(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
-            CallableStatement callableStatement = conn.prepareCall(sql);
+
+            callableStatement = conn.prepareCall(sql);
+
             callableStatement.setInt(2, request.getCountry1()); //Country1 in number
             callableStatement.setInt(3, request.getRprogramm()); //rprogramm in number
             callableStatement.setInt(4, request.getRprogSrok()); //rprog_srok in number
@@ -79,8 +98,18 @@ public class MstRegistrationComponent {
             //this is the main line
             response.setMessage(callableStatement.getString(1));
 
+            callableStatement.close();
+            conn.close();
+
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                callableStatement.close();
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return response;

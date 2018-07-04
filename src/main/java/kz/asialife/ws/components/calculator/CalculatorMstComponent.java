@@ -1,13 +1,17 @@
 package kz.asialife.ws.components.calculator;
 
+import kz.asialife.ws.CommonResponse;
+import kz.asialife.ws.KazinaResponse;
 import kz.asialife.ws.MstRequest;
 import kz.asialife.ws.MstResponse;
+import kz.asialife.ws.components.common.CommonComponent;
 import org.springframework.stereotype.Component;
 
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,20 +19,37 @@ import java.util.Date;
 import oracle.jdbc.driver.OracleDriver;
 
 @Component
-public class CalculatorMstComponent {
+public class CalculatorMstComponent extends CommonComponent {
     public MstResponse mst(MstRequest request){
+
+        CommonResponse commonResponse = checkSession(request);
+        if(commonResponse != null){
+            return (MstResponse)commonResponse;
+        }
+
         DateFormat sourceFormat = new SimpleDateFormat("dd.MM.yyyy");
 
         MstResponse response = new MstResponse();
+
+        Connection conn = null;
+        CallableStatement callableStatement = null;
+
         try {
+
             Date begin = sourceFormat.parse(request.getBeginDate());
             Date end = sourceFormat.parse(request.getEndDate());
             Date birth = sourceFormat.parse(request.getBirthDate());
+
             DriverManager.registerDriver(new OracleDriver());
+
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
-            Connection conn = DriverManager.getConnection(url, "mlm", "mlm");
+
+            conn = DriverManager.getConnection(url, "mlm", "mlm");
+
             String sql = "{ ? = call WEBSERVICE.calc_mst(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
-            CallableStatement callableStatement = conn.prepareCall(sql);
+
+            callableStatement = conn.prepareCall(sql);
+
             callableStatement.setInt(2, request.getInsuranceProgramm());
             callableStatement.setDate(3, new java.sql.Date(begin.getTime()));
             callableStatement.setDate(4, new java.sql.Date(end.getTime()));
@@ -56,8 +77,17 @@ public class CalculatorMstComponent {
             response.setPremEur(callableStatement.getString(16));
             response.setErr(callableStatement.getString(17));
 
+            callableStatement.close();
+            conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                callableStatement.close();
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return response;

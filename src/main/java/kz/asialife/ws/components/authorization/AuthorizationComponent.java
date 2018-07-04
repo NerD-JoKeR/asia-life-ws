@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import oracle.jdbc.driver.OracleDriver;
 
 @Component
@@ -14,13 +16,22 @@ public class AuthorizationComponent {
     public AuthorizationResponse authorize(AuthorizationRequest request){
 
         AuthorizationResponse response = new AuthorizationResponse();
+
+        Connection conn = null;
+        CallableStatement callableStatement = null;
+
         try {
 
             DriverManager.registerDriver(new OracleDriver());
+
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
-            Connection conn = DriverManager.getConnection(url, "mlm", "mlm");
+
+            conn = DriverManager.getConnection(url, "mlm", "mlm");
+
             String sql = "{ ? = call mlm.WEBSERVICE.kab_kln_authoriz(?,?,?,?,?) }";
-            CallableStatement callableStatement = conn.prepareCall(sql);
+
+            callableStatement = conn.prepareCall(sql);
+
             callableStatement.setString(2, request.getIin());
             callableStatement.setString(3, request.getPassword());
 
@@ -36,8 +47,18 @@ public class AuthorizationComponent {
             response.setPhone(callableStatement.getString(5));
             response.setEmail(callableStatement.getString(6));
 
+            callableStatement.close();
+            conn.close();
+
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                callableStatement.close();
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return response;
     }
