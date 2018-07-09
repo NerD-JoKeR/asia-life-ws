@@ -1,7 +1,6 @@
 package kz.asialife.ws.components.calculator;
 
 import kz.asialife.ws.CommonResponse;
-import kz.asialife.ws.MstResponse;
 import kz.asialife.ws.OsrnsRequest;
 import kz.asialife.ws.OsrnsResponse;
 import kz.asialife.ws.components.common.CommonComponent;

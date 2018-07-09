@@ -2,7 +2,6 @@ package kz.asialife.ws.components.registration;
 
 
 import kz.asialife.ws.CommonResponse;
-import kz.asialife.ws.MstResponse;
 import kz.asialife.ws.RegMstRequest;
 import kz.asialife.ws.RegMstResponse;
 import kz.asialife.ws.components.common.CommonComponent;

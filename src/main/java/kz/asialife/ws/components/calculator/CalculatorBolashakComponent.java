@@ -1,9 +1,8 @@
 package kz.asialife.ws.components.calculator;
 
-
+import kz.asialife.ws.BolashakRequest;
+import kz.asialife.ws.BolashakResponse;
 import kz.asialife.ws.CommonResponse;
-import kz.asialife.ws.KazinaRequest;
-import kz.asialife.ws.KazinaResponse;
 import kz.asialife.ws.components.common.CommonComponent;
 import oracle.jdbc.driver.OracleDriver;
 import org.springframework.stereotype.Component;
@@ -15,20 +14,19 @@ import java.sql.SQLException;
 
 
 @Component
-public class CalculatorKazinaComponent extends CommonComponent {
+public class CalculatorBolashakComponent extends CommonComponent {
 
-    public KazinaResponse kazina(KazinaRequest request) {
+    public BolashakResponse bolashak(BolashakRequest request){
 
         CommonResponse commonResponse = checkSession(request);
         if(commonResponse != null){
-            return (KazinaResponse)commonResponse;
+            return (BolashakResponse)commonResponse;
         }
 
-        KazinaResponse response = new KazinaResponse();
+        BolashakResponse response = new BolashakResponse();
 
         Connection conn = null;
         CallableStatement callableStatement = null;
-
 
         try {
             DriverManager.registerDriver(new OracleDriver());
@@ -37,7 +35,7 @@ public class CalculatorKazinaComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{ ? = call WEBSERVICE.calc_kazina(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+            String sql = "{ ? = call WEBSERVICE.calc_bolashak(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 
             callableStatement = conn.prepareCall(sql);
 
@@ -46,34 +44,39 @@ public class CalculatorKazinaComponent extends CommonComponent {
             callableStatement.setInt(4, request.getClnYears());
             callableStatement.setInt(5, request.getSrokYears());
             callableStatement.setInt(6, request.getStrSum());
-            callableStatement.setInt(7, request.getADB());
-            callableStatement.setInt(8, request.getATPD());
-            callableStatement.setInt(9, request.getTT());
-            callableStatement.setInt(10, request.getCI());
-            callableStatement.setInt(11, request.getTD());
-            callableStatement.setInt(12, request.getHD());
-
+            callableStatement.setInt(7, request.getDB());
+            callableStatement.setInt(8, request.getADB());
+            callableStatement.setInt(9, request.getATPD());
+            callableStatement.setInt(10, request.getTT());
+            callableStatement.setInt(11, request.getCI());
+            callableStatement.setInt(12, request.getTD());
+            callableStatement.setInt(13, request.getHD());
+            callableStatement.setInt(14, request.getTTV());
 
 
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
-            callableStatement.registerOutParameter(13, java.sql.Types.VARCHAR);
-            callableStatement.registerOutParameter(14, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(15, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(16, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(17, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(18, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(19, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(20, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(21, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(22, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(23, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
             //this is the main line
             response.setNumber(callableStatement.getString(1));
-            response.setOutADB(callableStatement.getString(13));
-            response.setOutATPD(callableStatement.getString(14));
-            response.setOutTT(callableStatement.getString(15));
-            response.setOutCI(callableStatement.getString(16));
-            response.setOutTD(callableStatement.getString(17));
-            response.setOutHD(callableStatement.getString(18));
-            response.setOutTPD(callableStatement.getString(19));
+            response.setOutDB(callableStatement.getString(15));
+            response.setOutADB(callableStatement.getString(16));
+            response.setOutATPD(callableStatement.getString(17));
+            response.setOutTT(callableStatement.getString(18));
+            response.setOutCI(callableStatement.getString(19));
+            response.setOutTD(callableStatement.getString(20));
+            response.setOutHD(callableStatement.getString(21));
+            response.setOutTPD(callableStatement.getString(22));
+            response.setOutTTV(callableStatement.getString(23));
             response.setSuccess(true);
 
             callableStatement.close();

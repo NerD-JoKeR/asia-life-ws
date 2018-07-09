@@ -19,6 +19,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${security.user.password.asia}")
     private String asiaPassword;
 
+
+    @Value("${security.user.name.admin}")
+    private String username;
+
+    @Value("${security.user.password.admin}")
+    private String password;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -37,7 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser(asiaUsername).password(asiaPassword).roles("ASIA");
+                .withUser(asiaUsername).password(asiaPassword).roles("ASIA")
+                .and()
+                .withUser(username).password(password).roles("ADMIN");
     }
 
 }

@@ -17,6 +17,7 @@ import kz.asialife.ws.RegMstRequest;
 import kz.asialife.ws.RegMstResponse;
 import kz.asialife.ws.components.authorization.AuthorizationComponent;
 import kz.asialife.ws.components.authorization.AuthorizationWSComponent;
+import kz.asialife.ws.components.calculator.CalculatorBolashakComponent;
 import kz.asialife.ws.components.calculator.CalculatorKazinaComponent;
 import kz.asialife.ws.components.calculator.CalculatorMstComponent;
 import kz.asialife.ws.components.calculator.CalculatorOSRNSComponent;
@@ -51,10 +52,14 @@ public class WSEndpoint {
     private CalculatorMstComponent mstComponent;
 
     @Autowired
-    private MstRegistrationComponent mstRegistrationComponent;
+    private CalculatorKazinaComponent calculatorKazinaComponent;
 
     @Autowired
-    private CalculatorKazinaComponent calculatorKazinaComponent;
+    private CalculatorBolashakComponent calculatorBolashakComponent;
+
+    @Autowired
+    private MstRegistrationComponent mstRegistrationComponent;
+
 
     @Autowired
     private CursorComponent cursorComponent;
@@ -93,6 +98,12 @@ public class WSEndpoint {
     @ResponsePayload
     public MstResponse mstRequest(@RequestPayload MstRequest request) {
         return mstComponent.mst(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "bolashakRequest")
+    @ResponsePayload
+    public BolashakResponse bolashakRequest(@RequestPayload BolashakRequest request) {
+        return calculatorBolashakComponent.bolashak(request);
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "kazinaRequest")
