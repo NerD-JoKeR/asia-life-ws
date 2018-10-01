@@ -42,15 +42,19 @@ public class CommonComponent {
 
 
             //TODO in DB create session statuses by this names below
+
             if(sessionStatus.equals("BLOCKED")){
                 response.setSuccess(false);
                 response.setMessage("Sessiion is blocked");
+                return response;
             } else if(sessionStatus.equals("EXPIRED")){
                 response.setSuccess(false);
                 response.setMessage("Session is expired");
+                return response;
             } else if(sessionStatus.equals("ERROR")){
                 response.setSuccess(false);
                 response.setMessage("Session is empty");
+                return response;
             }
 
             callableStatement.close();
@@ -68,5 +72,4 @@ public class CommonComponent {
 
         return null;
     }
-
 }

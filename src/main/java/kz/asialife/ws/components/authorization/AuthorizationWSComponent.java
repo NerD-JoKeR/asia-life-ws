@@ -28,7 +28,7 @@ public class AuthorizationWSComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{ ? = call mlm.WEBSERVICE.get_session(?,?) }";
+            String sql = "{ ? = call mlm.WEBSERVICE.get_session(?,?,?) }";
 
             callableStatement = conn.prepareCall(sql);
 
@@ -36,11 +36,22 @@ public class AuthorizationWSComponent {
             callableStatement.setString(3, request.getPassword());
 
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(4, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
 
             //this is the main line
             response.setSessionId(callableStatement.getString(1));
+
+            String answer = callableStatement.getString(4);
+
+            if (answer.equals("1")){
+                answer = "true";
+                response.setState(answer);
+            } else{
+                answer = "false";
+                response.setState(answer);
+            }
 
             callableStatement.close();
             conn.close();

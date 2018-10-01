@@ -17,10 +17,7 @@ import kz.asialife.ws.RegMstRequest;
 import kz.asialife.ws.RegMstResponse;
 import kz.asialife.ws.components.authorization.AuthorizationComponent;
 import kz.asialife.ws.components.authorization.AuthorizationWSComponent;
-import kz.asialife.ws.components.calculator.CalculatorBolashakComponent;
-import kz.asialife.ws.components.calculator.CalculatorKazinaComponent;
-import kz.asialife.ws.components.calculator.CalculatorMstComponent;
-import kz.asialife.ws.components.calculator.CalculatorOSRNSComponent;
+import kz.asialife.ws.components.calculator.*;
 import kz.asialife.ws.components.changePassword.ChangePasswordComponent;
 import kz.asialife.ws.components.cursor.CursorComponent;
 import kz.asialife.ws.components.registration.MstRegistrationComponent;
@@ -53,6 +50,9 @@ public class WSEndpoint {
 
     @Autowired
     private CalculatorKazinaComponent calculatorKazinaComponent;
+
+    @Autowired
+    private CalculatorKorgauComponent calculatorKorgauComponent;
 
     @Autowired
     private CalculatorBolashakComponent calculatorBolashakComponent;
@@ -110,6 +110,12 @@ public class WSEndpoint {
     @ResponsePayload
     public KazinaResponse kazinaRequest(@RequestPayload KazinaRequest request) {
         return calculatorKazinaComponent.kazina(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "korgauRequest")
+    @ResponsePayload
+    public KorgauResponse korgauRequest(@RequestPayload KorgauRequest request) {
+        return calculatorKorgauComponent.korgau(request);
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "regMstRequest")

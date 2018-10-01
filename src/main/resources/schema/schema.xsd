@@ -31,6 +31,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="sessionId" type="xs:string"/>
+                <xs:element name="state" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -211,6 +212,42 @@
                         <xs:element name="OutTD" type="xs:string"/>
                         <xs:element name="OutHD" type="xs:string"/>
                         <xs:element name="OutTPD" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="korgauRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="asia:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="periodichnost" type="xs:string"/>
+                        <xs:element name="clnYears" type="xs:int"/>
+                        <xs:element name="srokYears" type="xs:int"/>
+                        <xs:element name="strSumRip" type="xs:int"/>
+                        <xs:element name="strSumDop" type="xs:int"/>
+                        <xs:element name="strSumNs" type="xs:int"/>
+                        <xs:element name="strSumBody" type="xs:int"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="korgauResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="asia:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="number" type="xs:string"/>
+                        <xs:element name="outStrSumDop" type="xs:string"/>
+                        <xs:element name="outStrSumNs" type="xs:string"/>
+                        <xs:element name="outStrSumBody" type="xs:string"/>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
