@@ -20,9 +20,9 @@ import java.util.Date;
 public class MstRegistrationComponent extends CommonComponent {
     public RegMstResponse mst(RegMstRequest request){
 
-        CommonResponse commonResponse = checkSession(request);
+        RegMstResponse commonResponse = checkSession(request, new RegMstResponse());
         if(commonResponse != null){
-            return (RegMstResponse)commonResponse;
+            return commonResponse;
         }
 
         DateFormat sourceFormat = new SimpleDateFormat("dd.MM.yyyy");

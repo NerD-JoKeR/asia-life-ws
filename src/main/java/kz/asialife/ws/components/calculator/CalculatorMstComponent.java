@@ -21,9 +21,9 @@ import oracle.jdbc.driver.OracleDriver;
 public class CalculatorMstComponent extends CommonComponent {
     public MstResponse mst(MstRequest request){
 
-        CommonResponse commonResponse = checkSession(request);
+        MstResponse commonResponse = checkSession(request, new MstResponse());
         if(commonResponse != null){
-            return (MstResponse)commonResponse;
+            return commonResponse;
         }
 
         DateFormat sourceFormat = new SimpleDateFormat("dd.MM.yyyy");

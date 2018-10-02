@@ -17,9 +17,9 @@ public class CalculatorKorgauComponent extends CommonComponent{
 
     public KorgauResponse korgau(KorgauRequest request) {
 
-        CommonResponse commonResponse = checkSession(request);
+        KorgauResponse commonResponse = checkSession(request, new KorgauResponse());
         if(commonResponse != null){
-            return (KorgauResponse) commonResponse;
+            return commonResponse;
         }
 
         KorgauResponse response = new KorgauResponse();

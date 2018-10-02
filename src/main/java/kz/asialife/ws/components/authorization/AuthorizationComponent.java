@@ -18,9 +18,9 @@ public class AuthorizationComponent  extends CommonComponent {
 
     public AuthorizationResponse authorize(AuthorizationRequest request){
 
-        CommonResponse commonResponse = checkSession(request);
+        AuthorizationResponse commonResponse = checkSession(request, new AuthorizationResponse());
         if(commonResponse != null){
-            return (AuthorizationResponse) commonResponse;
+            return commonResponse;
         }
 
 

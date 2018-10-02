@@ -19,9 +19,9 @@ public class CalculatorKazinaComponent extends CommonComponent {
 
     public KazinaResponse kazina(KazinaRequest request) {
 
-        CommonResponse commonResponse = checkSession(request);
+        KazinaResponse commonResponse = checkSession(request, new KazinaResponse());
         if(commonResponse != null){
-            return (KazinaResponse)commonResponse;
+            return commonResponse;
         }
 
         KazinaResponse response = new KazinaResponse();

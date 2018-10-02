@@ -18,9 +18,9 @@ public class CalculatorBolashakComponent extends CommonComponent {
 
     public BolashakResponse bolashak(BolashakRequest request){
 
-        CommonResponse commonResponse = checkSession(request);
+        BolashakResponse commonResponse = checkSession(request, new BolashakResponse());
         if(commonResponse != null){
-            return (BolashakResponse)commonResponse;
+            return commonResponse;
         }
 
         BolashakResponse response = new BolashakResponse();

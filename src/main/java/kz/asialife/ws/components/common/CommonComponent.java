@@ -12,8 +12,7 @@ import java.sql.SQLException;
 
 public class CommonComponent {
 
-    public CommonResponse checkSession(CommonRequest request){
-        CommonResponse response = new CommonResponse();
+    public <ChildClass extends CommonResponse> ChildClass checkSession(CommonRequest request, ChildClass response){
         String sessionId = request.getSessionId();
         if(sessionId == null){
             response.setSuccess(false);
@@ -43,17 +42,9 @@ public class CommonComponent {
 
             //TODO in DB create session statuses by this names below
 
-            if(sessionStatus.equals("BLOCKED")){
+            if(sessionStatus.equals("EXPIRED")){
                 response.setSuccess(false);
-                response.setMessage("Sessiion is blocked");
-                return response;
-            } else if(sessionStatus.equals("EXPIRED")){
-                response.setSuccess(false);
-                response.setMessage("Session is expired");
-                return response;
-            } else if(sessionStatus.equals("ERROR")){
-                response.setSuccess(false);
-                response.setMessage("Session is empty");
+                response.setMessage("Session is expired!");
                 return response;
             }
 

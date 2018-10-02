@@ -19,9 +19,9 @@ public class CalculatorOSRNSComponent extends CommonComponent {
 
     public OsrnsResponse osrns(OsrnsRequest request) {
 
-        CommonResponse commonResponse = checkSession(request);
+        OsrnsResponse commonResponse = checkSession(request, new OsrnsResponse());
         if(commonResponse != null){
-            return (OsrnsResponse)commonResponse;
+            return commonResponse;
         }
 
         OsrnsResponse response = new OsrnsResponse();

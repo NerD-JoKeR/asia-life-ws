@@ -18,9 +18,9 @@ import org.springframework.stereotype.Component;
 public class CursorComponent extends CommonComponent {
     public CursorResponse cursor(CursorRequest request){
 
-        CommonResponse commonResponse = checkSession(request);
+        CursorResponse commonResponse = checkSession(request, new CursorResponse());
         if(commonResponse != null){
-            return (CursorResponse)commonResponse;
+            return commonResponse;
         }
 
         CursorResponse response = new CursorResponse();

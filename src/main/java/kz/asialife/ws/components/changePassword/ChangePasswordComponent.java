@@ -16,9 +16,9 @@ import oracle.jdbc.driver.OracleDriver;
 @Component
 public class ChangePasswordComponent extends CommonComponent {
     public ChangePasswordResponse changePassword(ChangePasswordRequest request){
-        CommonResponse commonResponse = checkSession(request);
+        ChangePasswordResponse commonResponse = checkSession(request, new ChangePasswordResponse());
         if(commonResponse != null){
-            return (ChangePasswordResponse)commonResponse;
+            return commonResponse;
         }
 
         ChangePasswordResponse response = new ChangePasswordResponse();
