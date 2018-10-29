@@ -25,8 +25,8 @@ public class CommonComponent {
 
         try {
             DriverManager.registerDriver(new OracleDriver());
-            String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
-            conn = DriverManager.getConnection(url, "mlm", "mlm");
+            String url = "TODO paste correct con url";
+            conn = DriverManager.getConnection(url, "log", "pass");
 
             String sql = "{ ? = call mlm.WEBSERVICE.activ_session(?) }";
             callableStatement = conn.prepareCall(sql);
@@ -44,7 +44,7 @@ public class CommonComponent {
 
             if(sessionStatus.equals("EXPIRED")){
                 response.setSuccess(false);
-                response.setMessage("Session is expired!");
+                response.setMessage("Web-Service session is expired. Please, update your SessionID and try again!");
                 return response;
             }
 

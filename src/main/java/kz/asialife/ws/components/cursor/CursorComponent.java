@@ -33,9 +33,9 @@ public class CursorComponent extends CommonComponent {
             DriverManager.registerDriver(new OracleDriver());
 
             // Connect to the database
-            String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
+            String url = "TODO paste correct con url";
 
-            conn = DriverManager.getConnection(url, "mlm", "mlm");
+            conn = DriverManager.getConnection(url, "log", "pass");
 
             // Prepare a PL/SQL call
             String sql = "{ ? = call WEBSERVICE.kab_kln_docs(?) }";

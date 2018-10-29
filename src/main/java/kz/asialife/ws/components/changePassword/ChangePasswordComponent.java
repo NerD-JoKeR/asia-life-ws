@@ -28,8 +28,8 @@ public class ChangePasswordComponent extends CommonComponent {
 
         try {
             DriverManager.registerDriver(new OracleDriver());
-            String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
-            conn = DriverManager.getConnection(url, "mlm", "mlm");
+            String url = "TODO paste correct con url";
+            conn = DriverManager.getConnection(url, "log", "pass");
 
             String sql = "{ ? = call mlm.WEBSERVICE.kab_kln_pass(?,?,?) }";
             callableStatement = conn.prepareCall(sql);

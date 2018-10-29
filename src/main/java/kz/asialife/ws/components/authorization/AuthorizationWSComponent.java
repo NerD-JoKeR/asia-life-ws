@@ -24,9 +24,9 @@ public class AuthorizationWSComponent {
 
             DriverManager.registerDriver(new OracleDriver());
 
-            String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
+            String url = "TODO paste correct con url";
 
-            conn = DriverManager.getConnection(url, "mlm", "mlm");
+            conn = DriverManager.getConnection(url, "log", "pass");
 
             String sql = "{ ? = call mlm.WEBSERVICE.get_session(?,?,?) }";
 
