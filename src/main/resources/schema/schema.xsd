@@ -1,5 +1,9 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:asia="http://asialife.kz/ws"
-           targetNamespace="http://asialife.kz/ws" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ffin="http://ffinlife/ws"
+           xmlns:tns="http://ffinlife/ws"
+           xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+           targetNamespace="http://ffinlife/ws"
+           elementFormDefault="qualified">
 
 
     <xs:complexType name="commonRequest">
@@ -15,6 +19,47 @@
             <xs:element type="xs:string" name="message"/>
         </xs:sequence>
     </xs:complexType>
+
+
+    <xs:element name="getMTOMRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="docNumber" type="xs:int"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getMTOMResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="mtomDoc" type="tns:mtom"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="mtom">
+        <xs:sequence>
+            <xs:element name="documentMTOM" type="tns:documentMTOM"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="documentMTOM">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="content" type="xs:base64Binary" xmime:expectedContentTypes="text/xml"/>
+        </xs:sequence>
+    </xs:complexType>
+
 
 
     <xs:element name="authorizationWSRequest">
@@ -37,10 +82,11 @@
     </xs:element>
 
 
+
     <xs:element name="authorizationRequest">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="asia:commonRequest">
+                <xs:extension base="ffin:commonRequest">
                     <xs:sequence>
                         <xs:element name="iin" type="xs:string"/>
                         <xs:element name="password" type="xs:string"/>
@@ -51,11 +97,10 @@
     </xs:element>
 
 
-
     <xs:element name="authorizationResponse">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="asia:commonResponse">
+                <xs:extension base="ffin:commonResponse">
                     <xs:sequence>
                         <xs:element name="iin" type="xs:string"/>
                         <xs:element name="password" type="xs:string"/>
@@ -70,29 +115,27 @@
     </xs:element>
 
 
-    <xs:element name="changePasswordRequest">
+
+    <xs:element name="authorizationCabAgentRequest">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="asia:commonRequest">
-                        <xs:sequence>
-                            <xs:element name="iin" type="xs:string"/>
-                            <xs:element name="password" type="xs:string"/>
-                            <xs:element name="oldPass" type="xs:string"/>
-                        </xs:sequence>
-                </xs:extension>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-
-    <xs:element name="changePasswordResponse">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="asia:commonResponse">
+                <xs:extension base="ffin:commonRequest">
                     <xs:sequence>
-                        <xs:element name="iin" type="xs:string"/>
+                        <xs:element name="login" type="xs:string"/>
                         <xs:element name="password" type="xs:string"/>
-                        <xs:element name="oldPass" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="authorizationCabAgentResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="name" type="xs:string"/>
                         <xs:element name="result" type="xs:string"/>
                     </xs:sequence>
                 </xs:extension>
@@ -102,14 +145,16 @@
 
 
 
-    <xs:element name="osrnsRequest">
+    <xs:element name="registrationCabAgentRequest">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="asia:commonRequest">
+                <xs:extension base="ffin:commonRequest">
                     <xs:sequence>
-                        <xs:element name="oked" type="xs:int"/>
-                        <xs:element name="yearFond" type="xs:double"/>
-                        <xs:element name="col_sotr" type="xs:int"/>
+                        <xs:element name="compNumber" type="xs:string"/>
+                        <xs:element name="iin" type="xs:string"/>
+                        <xs:element name="email" type="xs:string"/>
+                        <xs:element name="question" type="xs:string"/>
+                        <xs:element name="answer" type="xs:string"/>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
@@ -117,56 +162,13 @@
     </xs:element>
 
 
-    <xs:element name="osrnsResponse">
+    <xs:element name="registrationCabAgentResponse">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="asia:commonResponse">
+                <xs:extension base="ffin:commonResponse">
                     <xs:sequence>
-                        <xs:element name="premKz" type="xs:string"/>
-                        <xs:element name="sumStrahKz" type="xs:string"/>
-                        <xs:element name="err" type="xs:string"/>
-                        <xs:element name="result" type="xs:string"/>
-                    </xs:sequence>
-                </xs:extension>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-
-
-    <xs:element name="mstRequest">
-        <xs:complexType>
-                <xs:complexContent>
-                    <xs:extension base="asia:commonRequest">
-                        <xs:sequence>
-                            <xs:element name="country1" type="xs:int"/>
-                            <xs:element name="country2" type="xs:int"/>
-                            <xs:element name="country3" type="xs:int"/>
-                            <xs:element name="sumStrah" type="xs:int"/>
-                            <xs:element name="insuranceProgramm" type="xs:int"/>
-                            <xs:element name="beginDate" type="xs:string"/>
-                            <xs:element name="endDate" type="xs:string"/>
-                            <xs:element name="birthDate" type="xs:string"/>
-                            <xs:element name="rprogSrok" type="xs:int"/>
-                            <xs:element name="rprogMaxDays" type="xs:int"/>
-                            <xs:element name="email" type="xs:string"/>
-                        </xs:sequence>
-                    </xs:extension>
-                </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-
-    <xs:element name="mstResponse">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="asia:commonResponse">
-                    <xs:sequence>
-                        <xs:element name="premKz" type="xs:string"/>
-                        <xs:element name="kurs" type="xs:string"/>
-                        <xs:element name="sumStrahKz" type="xs:string"/>
-                        <xs:element name="premEur" type="xs:string"/>
-                        <xs:element name="err" type="xs:string"/>
+                        <xs:element name="cabResult" type="xs:int"/>
+                        <xs:element name="cabMessage" type="xs:string"/>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
@@ -175,140 +177,10 @@
 
 
 
-
-    <xs:element name="kazinaRequest">
+    <xs:element name="registrationFreedomTravelRequest">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="asia:commonRequest">
-                    <xs:sequence>
-                        <xs:element name="periodichnost" type="xs:string"/>
-                        <xs:element name="sex" type="xs:string"/>
-                        <xs:element name="clnYears" type="xs:int"/>
-                        <xs:element name="srokYears" type="xs:int"/>
-                        <xs:element name="strSum" type="xs:int"/>
-                        <xs:element name="ADB" type="xs:int"/>
-                        <xs:element name="ATPD" type="xs:int"/>
-                        <xs:element name="TT" type="xs:int"/>
-                        <xs:element name="CI" type="xs:int"/>
-                        <xs:element name="TD" type="xs:int"/>
-                        <xs:element name="HD" type="xs:int"/>
-                    </xs:sequence>
-                </xs:extension>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-
-    <xs:element name="kazinaResponse">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="asia:commonResponse">
-                    <xs:sequence>
-                        <xs:element name="number" type="xs:string"/>
-                        <xs:element name="OutADB" type="xs:string"/>
-                        <xs:element name="OutATPD" type="xs:string"/>
-                        <xs:element name="OutTT" type="xs:string"/>
-                        <xs:element name="OutCI" type="xs:string"/>
-                        <xs:element name="OutTD" type="xs:string"/>
-                        <xs:element name="OutHD" type="xs:string"/>
-                        <xs:element name="OutTPD" type="xs:string"/>
-                    </xs:sequence>
-                </xs:extension>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-
-
-    <xs:element name="korgauRequest">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="asia:commonRequest">
-                    <xs:sequence>
-                        <xs:element name="periodichnost" type="xs:string"/>
-                        <xs:element name="clnYears" type="xs:int"/>
-                        <xs:element name="srokYears" type="xs:int"/>
-                        <xs:element name="strSumRip" type="xs:int"/>
-                        <xs:element name="strSumDop" type="xs:int"/>
-                        <xs:element name="strSumNs" type="xs:int"/>
-                        <xs:element name="strSumBody" type="xs:int"/>
-                    </xs:sequence>
-                </xs:extension>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-
-    <xs:element name="korgauResponse">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="asia:commonResponse">
-                    <xs:sequence>
-                        <xs:element name="number" type="xs:string"/>
-                        <xs:element name="outStrSumDop" type="xs:string"/>
-                        <xs:element name="outStrSumNs" type="xs:string"/>
-                        <xs:element name="outStrSumBody" type="xs:string"/>
-                    </xs:sequence>
-                </xs:extension>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-
-
-    <xs:element name="bolashakRequest">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="asia:commonRequest">
-                    <xs:sequence>
-                        <xs:element name="periodichnost" type="xs:string"/>
-                        <xs:element name="sex" type="xs:string"/>
-                        <xs:element name="clnYears" type="xs:int"/>
-                        <xs:element name="srokYears" type="xs:int"/>
-                        <xs:element name="strSum" type="xs:int"/>
-                        <xs:element name="DB" type="xs:int"/>
-                        <xs:element name="ADB" type="xs:int"/>
-                        <xs:element name="ATPD" type="xs:int"/>
-                        <xs:element name="TT" type="xs:int"/>
-                        <xs:element name="CI" type="xs:int"/>
-                        <xs:element name="TD" type="xs:int"/>
-                        <xs:element name="HD" type="xs:int"/>
-                        <xs:element name="TTV" type="xs:int"/>
-                    </xs:sequence>
-                </xs:extension>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-
-    <xs:element name="bolashakResponse">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="asia:commonResponse">
-                    <xs:sequence>
-                        <xs:element name="number" type="xs:string"/>
-                        <xs:element name="OutDB" type="xs:string"/>
-                        <xs:element name="OutADB" type="xs:string"/>
-                        <xs:element name="OutATPD" type="xs:string"/>
-                        <xs:element name="OutTT" type="xs:string"/>
-                        <xs:element name="OutCI" type="xs:string"/>
-                        <xs:element name="OutTD" type="xs:string"/>
-                        <xs:element name="OutHD" type="xs:string"/>
-                        <xs:element name="OutTPD" type="xs:string"/>
-                        <xs:element name="OutTTV" type="xs:string"/>
-                    </xs:sequence>
-                </xs:extension>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-
-
-
-    <xs:element name="regMstRequest">
-         <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="asia:commonRequest">
+                <xs:extension base="ffin:commonRequest">
                     <xs:sequence>
                         <xs:element name="country1" type="xs:int"/>
                         <xs:element name="rprogramm" type="xs:int"/>
@@ -355,12 +227,417 @@
     </xs:element>
 
 
-    <xs:element name="regMstResponse">
+    <xs:element name="registrationFreedomTravelResponse">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="asia:commonResponse">
+                <xs:extension base="ffin:commonResponse">
                     <xs:sequence>
                         <xs:element name="message" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="repWorkActCabRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="agentLogin" type="xs:string"/>
+                        <xs:element name="repType" type="xs:string"/>
+                        <xs:element name="agentId" type="xs:string"/>
+                        <xs:element name="departmentId" type="xs:string"/>
+                        <xs:element name="regionId" type="xs:string"/>
+                        <xs:element name="subDepartmentId" type="xs:string"/>
+                        <xs:element name="dateFrom" type="xs:string"/>
+                        <xs:element name="dateTo" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="repWorkActCabResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="resultCabWorkAct" type="xs:int"/>
+                        <xs:element name="messageCabWorkAct" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="changePasswordRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                        <xs:sequence>
+                            <xs:element name="iin" type="xs:string"/>
+                            <xs:element name="password" type="xs:string"/>
+                            <xs:element name="oldPass" type="xs:string"/>
+                        </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="changePasswordResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="iin" type="xs:string"/>
+                        <xs:element name="password" type="xs:string"/>
+                        <xs:element name="oldPass" type="xs:string"/>
+                        <xs:element name="result" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="changePassCabAgentRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="agentLogin" type="xs:string"/>
+                        <xs:element name="oldPass" type="xs:string"/>
+                        <xs:element name="newPass1" type="xs:string"/>
+                        <xs:element name="newPass2" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="changePassCabAgentResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="changePassResult" type="xs:int"/>
+                        <xs:element name="changePassMessage" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="recoveryPassCabAgentRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="agentLogin" type="xs:string"/>
+                        <xs:element name="email" type="xs:string"/>
+                        <xs:element name="answer" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="recoveryPassCabAgentResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="recoveryPassCabAgentResult" type="xs:int"/>
+                        <xs:element name="recoveryPassCabAgentMessage" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+
+    <xs:element name="cabPayRollRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="agentLogin" type="xs:string"/>
+                        <xs:element name="repType" type="xs:string"/>
+                        <xs:element name="agentId" type="xs:string"/>
+                        <xs:element name="departmentId" type="xs:string"/>
+                        <xs:element name="subDepartmentId" type="xs:string"/>
+                        <xs:element name="regionId" type="xs:string"/>
+                        <xs:element name="agentFIO" type="xs:string"/>
+                        <xs:element name="agentNumber" type="xs:string"/>
+                        <xs:element name="dateFrom" type="xs:string"/>
+                        <xs:element name="dateTo" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="cabPayRollResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="cabPAyRollResult" type="xs:int"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="calculatorOsrnsRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="oked" type="xs:int"/>
+                        <xs:element name="yearFond" type="xs:double"/>
+                        <xs:element name="col_sotr" type="xs:int"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="calculatorOsrnsResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="premKz" type="xs:string"/>
+                        <xs:element name="sumStrahKz" type="xs:string"/>
+                        <xs:element name="err" type="xs:string"/>
+                        <xs:element name="result" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="calculatorFreedomTravelRequest">
+        <xs:complexType>
+                <xs:complexContent>
+                    <xs:extension base="ffin:commonRequest">
+                        <xs:sequence>
+                            <xs:element name="country1" type="xs:int"/>
+                            <xs:element name="country2" type="xs:int"/>
+                            <xs:element name="country3" type="xs:int"/>
+                            <xs:element name="sumStrah" type="xs:int"/>
+                            <xs:element name="insuranceProgramm" type="xs:int"/>
+                            <xs:element name="beginDate" type="xs:string"/>
+                            <xs:element name="endDate" type="xs:string"/>
+                            <xs:element name="birthDate" type="xs:string"/>
+                            <xs:element name="rprogSrok" type="xs:int"/>
+                            <xs:element name="rprogMaxDays" type="xs:int"/>
+                            <xs:element name="email" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="calculatorFreedomTravelResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="premKz" type="xs:string"/>
+                        <xs:element name="kurs" type="xs:string"/>
+                        <xs:element name="sumStrahKz" type="xs:string"/>
+                        <xs:element name="premEur" type="xs:string"/>
+                        <xs:element name="err" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+
+    <xs:element name="calculatorFreedomFutureRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="periodichnost" type="xs:string"/>
+                        <xs:element name="sex" type="xs:string"/>
+                        <xs:element name="clnYears" type="xs:int"/>
+                        <xs:element name="srokYears" type="xs:int"/>
+                        <xs:element name="strSum" type="xs:int"/>
+                        <xs:element name="ADB" type="xs:int"/>
+                        <xs:element name="ATPD" type="xs:int"/>
+                        <xs:element name="TT" type="xs:int"/>
+                        <xs:element name="CI" type="xs:int"/>
+                        <xs:element name="TD" type="xs:int"/>
+                        <xs:element name="HD" type="xs:int"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="calculatorFreedomFutureResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="number" type="xs:string"/>
+                        <xs:element name="OutADB" type="xs:string"/>
+                        <xs:element name="OutATPD" type="xs:string"/>
+                        <xs:element name="OutTT" type="xs:string"/>
+                        <xs:element name="OutCI" type="xs:string"/>
+                        <xs:element name="OutTD" type="xs:string"/>
+                        <xs:element name="OutHD" type="xs:string"/>
+                        <xs:element name="OutTPD" type="xs:string"/>
+                        <xs:element name="OutALL" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="calculatorFreedomProtectRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="periodichnost" type="xs:string"/>
+                        <xs:element name="clnYears" type="xs:int"/>
+                        <xs:element name="srokYears" type="xs:int"/>
+                        <xs:element name="strSumRip" type="xs:int"/>
+                        <xs:element name="strSumDop" type="xs:int"/>
+                        <xs:element name="strSumNs" type="xs:int"/>
+                        <xs:element name="strSumBody" type="xs:int"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="calculatorFreedomProtectResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="number" type="xs:string"/>
+                        <xs:element name="outStrSumDop" type="xs:string"/>
+                        <xs:element name="outStrSumNs" type="xs:string"/>
+                        <xs:element name="outStrSumBody" type="xs:string"/>
+                        <xs:element name="outALL" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="calculatorFreedomKidsRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="periodichnost" type="xs:string"/>
+                        <xs:element name="sex" type="xs:string"/>
+                        <xs:element name="clnYears" type="xs:int"/>
+                        <xs:element name="srokYears" type="xs:int"/>
+                        <xs:element name="strSum" type="xs:int"/>
+                        <xs:element name="DB" type="xs:int"/>
+                        <xs:element name="ADB" type="xs:int"/>
+                        <xs:element name="ATPD" type="xs:int"/>
+                        <xs:element name="TT" type="xs:int"/>
+                        <xs:element name="CI" type="xs:int"/>
+                        <xs:element name="TD" type="xs:int"/>
+                        <xs:element name="HD" type="xs:int"/>
+                        <xs:element name="TTV" type="xs:int"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="calculatorFreedomKidsResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="number" type="xs:string"/>
+                        <xs:element name="OutDB" type="xs:string"/>
+                        <xs:element name="OutADB" type="xs:string"/>
+                        <xs:element name="OutATPD" type="xs:string"/>
+                        <xs:element name="OutTT" type="xs:string"/>
+                        <xs:element name="OutCI" type="xs:string"/>
+                        <xs:element name="OutTD" type="xs:string"/>
+                        <xs:element name="OutHD" type="xs:string"/>
+                        <xs:element name="OutTPD" type="xs:string"/>
+                        <xs:element name="OutTTV" type="xs:string"/>
+                        <xs:element name="OutALL" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="calculatorCabRewardRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="agentLogin" type="xs:string"/>
+                        <xs:element name="productId" type="xs:string"/>
+                        <xs:element name="bonusAmount" type="xs:string"/>
+                        <xs:element name="termInsurance" type="xs:string"/>
+                        <xs:element name="yearPayment" type="xs:string"/>
+                        <xs:element name="subordinate" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="calculatorCabRewardResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="cabRewardResult" type="xs:int"/>
+                        <xs:element name="cabRewardMessage" type="xs:string"/>
+                        <xs:element name="commissionAmount" type="xs:string"/>
+                        <xs:element name="unitsAmount" type="xs:string"/>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
@@ -372,7 +649,7 @@
     <xs:element name="cursorRequest">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="asia:commonRequest">
+                <xs:extension base="ffin:commonRequest">
                     <xs:sequence>
                         <xs:element name="inn" type="xs:string"/>
                     </xs:sequence>
@@ -385,9 +662,9 @@
     <xs:element name="cursorResponse">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="asia:commonResponse">
+                <xs:extension base="ffin:commonResponse">
                     <xs:sequence minOccurs="0" maxOccurs="unbounded">
-                        <xs:element name="cursor" type="asia:document" />
+                        <xs:element name="cursor" type="ffin:document" />
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
@@ -407,5 +684,110 @@
             <xs:element name="col8" type="xs:string" />
         </xs:sequence>
     </xs:complexType>
+
+
+
+    <xs:element name="cursorProductsRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="cursorProductsResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="products" type="ffin:document1" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="cursorDepartmentsRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="cursorDepartmentsResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="departments" type="ffin:document1" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="cursorRegionsRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="cursorRegionsResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="regions" type="ffin:document1" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="cursorSubDepRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="cursorSubDepResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="subDep" type="ffin:document1" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="document1">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="name" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
 
 </xs:schema>

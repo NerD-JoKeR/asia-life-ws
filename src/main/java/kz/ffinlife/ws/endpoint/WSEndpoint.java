@@ -1,0 +1,249 @@
+package kz.ffinlife.ws.endpoint;
+
+import ffinlife.ws.*;
+import ffinlife.ws.AuthorizationRequest;
+import ffinlife.ws.AuthorizationResponse;
+import ffinlife.ws.ChangePasswordRequest;
+import ffinlife.ws.ChangePasswordResponse;
+import ffinlife.ws.CursorRequest;
+import ffinlife.ws.CursorResponse;
+import kz.ffinlife.ws.components.authorization.AuthorizationCabAgentComponent;
+import kz.ffinlife.ws.components.authorization.AuthorizationComponent;
+import kz.ffinlife.ws.components.authorization.AuthorizationWSComponent;
+import kz.ffinlife.ws.components.calculator.*;
+import kz.ffinlife.ws.components.changePassword.ChangePassCabAgentComponent;
+import kz.ffinlife.ws.components.changePassword.ChangePasswordComponent;
+import kz.ffinlife.ws.components.changePassword.RecoveryPassCabAgentComponent;
+import kz.ffinlife.ws.components.cursor.*;
+import kz.ffinlife.ws.components.registration.RegistrationCabAgentComponent;
+import kz.ffinlife.ws.components.registration.RegistrationFreedomTravelComponent;
+import kz.ffinlife.ws.components.workAct.CabPayRollComponent;
+import kz.ffinlife.ws.components.workAct.CabRepWorkActComponent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ws.server.endpoint.annotation.Endpoint;
+import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
+import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+
+
+@Endpoint
+public class WSEndpoint {
+    private static final String NAMESPACE_URI = "http://ffinlife/ws";
+
+    @Autowired
+    private AuthorizationWSComponent authorizationWSComponent;
+
+
+    @Autowired
+    private AuthorizationComponent authorizationComponent;
+
+
+    @Autowired
+    private AuthorizationCabAgentComponent authorizationCabAgentComponent;
+
+
+    @Autowired
+    private ChangePasswordComponent changePasswordComponent;
+
+
+    @Autowired
+    private ChangePassCabAgentComponent changePassCabAgentComponent;
+
+
+    @Autowired
+    private RecoveryPassCabAgentComponent recoveryPassCabAgentComponent;
+
+
+    @Autowired
+    private RegistrationFreedomTravelComponent registrationFreedomTravelComponent;
+
+
+    @Autowired
+    private RegistrationCabAgentComponent registrationCabAgentComponent;
+
+
+    @Autowired
+    private CabRepWorkActComponent cabRepWorkActComponent;
+
+
+    @Autowired
+    private CabPayRollComponent cabPayRollComponent;
+
+
+    @Autowired
+    private CalculatorOsrnsComponent osrnsComponent;
+
+
+    @Autowired
+    private CalculatorFreedomTravelComponent calculatorFreedomTravelComponent ;
+
+
+    @Autowired
+    private CalculatorFreedomFutureComponent calculatorFreedomFutureComponent;
+
+
+    @Autowired
+    private CalculatorFreedomProtectComponent calculatorFreedomProtectComponent;
+
+
+    @Autowired
+    private CalculatorFreedomKidsComponent calculatorFreedomKidsComponent;
+
+
+    @Autowired
+    private CalculatorCabRewardComponent calculatorCabRewardComponent;
+
+
+    @Autowired
+    private CursorComponent cursorComponent;
+
+
+    @Autowired
+    private CursorProductComponent cursorProductComponent;
+
+
+    @Autowired
+    private CursorDepartmentComponent cursorDepartmentComponent;
+
+
+    @Autowired
+    private CursorRegionComponent cursorRegionComponent;
+
+
+    @Autowired
+    private CursorSubDepComponent cursorSubDepComponent;
+
+
+
+
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authorizationWSRequest")
+    @ResponsePayload
+    public AuthorizationWSResponse authorizationWSRequest(@RequestPayload AuthorizationWSRequest request) {
+        return authorizationWSComponent.authorizeWS(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authorizationRequest")
+    @ResponsePayload
+    public AuthorizationResponse authorizationRequest(@RequestPayload AuthorizationRequest request) {
+        return authorizationComponent.authorize(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "authorizationCabAgentRequest")
+    @ResponsePayload
+    public AuthorizationCabAgentResponse authorizationCabAgentRequest(@RequestPayload AuthorizationCabAgentRequest request) {
+        return authorizationCabAgentComponent.authorizeCabAgent(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "registrationCabAgentRequest")
+    @ResponsePayload
+    public RegistrationCabAgentResponse registrationCabRequest(@RequestPayload RegistrationCabAgentRequest request) {
+        return registrationCabAgentComponent.registrationCabAgent(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cabPayRollRequest")
+    @ResponsePayload
+    public CabPayRollResponse cabPayRollRequest(@RequestPayload CabPayRollRequest request) {
+        return cabPayRollComponent.cabPayRoll(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "repWorkActCabRequest")
+    @ResponsePayload
+    public RepWorkActCabResponse repWorkActCabRequest(@RequestPayload RepWorkActCabRequest request) {
+        return cabRepWorkActComponent.repWorkAct(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "changePasswordRequest")
+    @ResponsePayload
+    public ChangePasswordResponse changePasswordRequest(@RequestPayload ChangePasswordRequest request) {
+        return changePasswordComponent.changePassword(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "changePassCabAgentRequest")
+    @ResponsePayload
+    public ChangePassCabAgentResponse changePassCabResponse(@RequestPayload ChangePassCabAgentRequest request) {
+        return changePassCabAgentComponent.changePassCab(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "recoveryPassCabAgentRequest")
+    @ResponsePayload
+    public RecoveryPassCabAgentResponse recoveryPassCabResponse(@RequestPayload RecoveryPassCabAgentRequest request) {
+        return recoveryPassCabAgentComponent.recoveryPassCabAgent(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "calculatorOsrnsRequest")
+    @ResponsePayload
+    public CalculatorOsrnsResponse osrnsRequest(@RequestPayload CalculatorOsrnsRequest request) {
+        return osrnsComponent.osrns(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "calculatorFreedomTravelRequest")
+    @ResponsePayload
+    public CalculatorFreedomTravelResponse freedomTravelRequest(@RequestPayload CalculatorFreedomTravelRequest request) {
+        return calculatorFreedomTravelComponent.freedomTravel(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "calculatorFreedomKidsRequest")
+    @ResponsePayload
+    public CalculatorFreedomKidsResponse freedomKidsRequest(@RequestPayload CalculatorFreedomKidsRequest request) {
+        return calculatorFreedomKidsComponent.freedomKids(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "calculatorFreedomFutureRequest")
+    @ResponsePayload
+    public CalculatorFreedomFutureResponse freedomFutureRequest(@RequestPayload CalculatorFreedomFutureRequest request) {
+        return calculatorFreedomFutureComponent.freedomFuture(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "calculatorFreedomProtectRequest")
+    @ResponsePayload
+    public CalculatorFreedomProtectResponse freedomProtectRequest(@RequestPayload CalculatorFreedomProtectRequest request) {
+        return calculatorFreedomProtectComponent.freedomProtect(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "calculatorCabRewardRequest")
+    @ResponsePayload
+    public CalculatorCabRewardResponse calculatorCabRewardRequest(@RequestPayload CalculatorCabRewardRequest request) {
+        return calculatorCabRewardComponent.cabReward(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "registrationFreedomTravelRequest")
+    @ResponsePayload
+    public RegistrationFreedomTravelResponse regFreedomTravelRequest(@RequestPayload RegistrationFreedomTravelRequest request) {
+        return registrationFreedomTravelComponent.regFreedomTravel(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorRequest")
+    @ResponsePayload
+    public CursorResponse cursorRequest(@RequestPayload CursorRequest request) {
+        return cursorComponent.cursor(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorProductsRequest")
+    @ResponsePayload
+    public CursorProductsResponse cursorProductsRequest(@RequestPayload CursorProductsRequest request) {
+        return cursorProductComponent.cursorProduct(request);
+    }
+
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorDepartmentsRequest")
+    @ResponsePayload
+    public CursorDepartmentsResponse cursorDepartmentsRequest(@RequestPayload CursorDepartmentsRequest request) {
+        return cursorDepartmentComponent.cursorDepartment(request);
+    }
+
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorRegionsRequest")
+    @ResponsePayload
+    public CursorRegionsResponse cursorRegionsRequest(@RequestPayload CursorRegionsRequest request) {
+        return cursorRegionComponent.cursorRegions(request);
+    }
+
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorSubDepRequest")
+    @ResponsePayload
+    public CursorSubDepResponse cursorSubDepRequest(@RequestPayload CursorSubDepRequest request) {
+        return cursorSubDepComponent.cursorSubDep(request);
+    }
+
+}

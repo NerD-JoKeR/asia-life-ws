@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>kz.asialife.ws</groupId>
-    <artifactId>asia-life-ws</artifactId>
-    <version>1.0</version>
+    <groupId>kz.ffinlife.ws</groupId>
+    <artifactId>ffin-life-ws</artifactId>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
-    <name>asia-life-ws</name>
-    <description>Asialife webservice</description>
+    <name>ffin-life-ws</name>
+    <description>FFINLife WebService</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -50,6 +50,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.4.0</version>
         </dependency>
     </dependencies>
 
