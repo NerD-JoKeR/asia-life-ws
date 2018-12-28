@@ -12,19 +12,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String REALM_NAME = "ffinlife";
 
-
     @Value("${security.user.name.ffin}")
     private String ffinUsername;
 
     @Value("${security.user.password.ffin}")
     private String ffinPassword;
 
-
     @Value("${security.user.name.admin}")
     private String username;
 
     @Value("${security.user.password.admin}")
     private String password;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -47,5 +46,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser(username).password(password).roles("ADMIN");
     }
-
 }

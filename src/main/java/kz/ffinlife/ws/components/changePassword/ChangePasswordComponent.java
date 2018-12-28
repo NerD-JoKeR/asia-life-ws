@@ -40,7 +40,7 @@ public class ChangePasswordComponent extends CommonComponent {
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
-            //this is the main line
+
             response.setResult(callableStatement.getString(1));
             response.setSuccess(true);
 
@@ -56,7 +56,6 @@ public class ChangePasswordComponent extends CommonComponent {
                 e.printStackTrace();
             }
         }
-
         return response;
     }
 }

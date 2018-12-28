@@ -25,15 +25,12 @@ public class CursorRegionComponent extends CommonComponent {
         CallableStatement callableStatement = null;
 
         try{
-            // Load the driver
             DriverManager.registerDriver(new OracleDriver());
 
-            // Connect to the database
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            // Prepare a PL/SQL call
             String sql = "{ ? = call cab_util_pck.get_regions}";
 
             callableStatement = conn.prepareCall(sql);
@@ -68,7 +65,6 @@ public class CursorRegionComponent extends CommonComponent {
                 e.printStackTrace();
             }
         }
-
         return response;
     }
 }

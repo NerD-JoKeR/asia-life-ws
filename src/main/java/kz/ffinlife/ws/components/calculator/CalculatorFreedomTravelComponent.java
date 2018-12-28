@@ -33,7 +33,6 @@ public class CalculatorFreedomTravelComponent extends CommonComponent{
         CallableStatement callableStatement = null;
 
         try {
-
             Date begin = sourceFormat.parse(request.getBeginDate());
             Date end = sourceFormat.parse(request.getEndDate());
             Date birth = sourceFormat.parse(request.getBirthDate());
@@ -68,7 +67,7 @@ public class CalculatorFreedomTravelComponent extends CommonComponent{
             callableStatement.registerOutParameter(17, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
-            //this is the main line
+
             response.setPremKz(callableStatement.getString(1));
             response.setKurs(callableStatement.getString(14));
             response.setSumStrahKz(callableStatement.getString(15));
@@ -88,7 +87,6 @@ public class CalculatorFreedomTravelComponent extends CommonComponent{
                 e.printStackTrace();
             }
         }
-
         return response;
     }
 }

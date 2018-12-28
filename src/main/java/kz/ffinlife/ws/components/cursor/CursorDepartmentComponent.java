@@ -68,7 +68,6 @@ public class CursorDepartmentComponent extends CommonComponent {
                 e.printStackTrace();
             }
         }
-
         return response;
     }
 }

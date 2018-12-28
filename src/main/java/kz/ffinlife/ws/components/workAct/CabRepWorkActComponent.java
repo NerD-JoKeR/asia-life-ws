@@ -26,7 +26,6 @@ public class CabRepWorkActComponent extends CommonComponent {
         CallableStatement callableStatement = null;
 
         try {
-
             DriverManager.registerDriver(new OracleDriver()); //oracle driver
 
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife"; //connection to DB
@@ -46,13 +45,11 @@ public class CabRepWorkActComponent extends CommonComponent {
             callableStatement.setString(8, request.getDateFrom());
             callableStatement.setString(9, request.getDateTo());
 
-
             callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
             callableStatement.registerOutParameter(10, java.sql.Types.VARCHAR);
 
-
             callableStatement.execute();
-            //this is the main line to the return response
+
             response.setResultCabWorkAct(callableStatement.getInt(1));
             response.setMessageCabWorkAct(callableStatement.getString(10));
             response.setSuccess(true);

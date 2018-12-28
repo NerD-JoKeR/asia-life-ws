@@ -52,8 +52,6 @@ public class CalculatorFreedomFutureComponent extends CommonComponent {
             callableStatement.setInt(11, request.getTD());
             callableStatement.setInt(12, request.getHD());
 
-
-
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(13, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(14, java.sql.Types.VARCHAR);
@@ -65,7 +63,7 @@ public class CalculatorFreedomFutureComponent extends CommonComponent {
             callableStatement.registerOutParameter(20, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
-            //this is the main line
+
             response.setNumber(callableStatement.getString(1));
             response.setOutADB(callableStatement.getString(13));
             response.setOutATPD(callableStatement.getString(14));

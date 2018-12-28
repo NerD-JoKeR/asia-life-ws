@@ -21,7 +21,6 @@ public class AuthorizationWSComponent {
         CallableStatement callableStatement = null;
 
         try {
-
             DriverManager.registerDriver(new OracleDriver());
 
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
@@ -40,7 +39,6 @@ public class AuthorizationWSComponent {
 
             callableStatement.execute();
 
-            //this is the main line
             response.setSessionId(callableStatement.getString(1));
 
             String answer = callableStatement.getString(4);

@@ -22,14 +22,12 @@ public class AuthorizationComponent  extends CommonComponent {
             return commonResponse;
         }
 
-
         AuthorizationResponse response = new AuthorizationResponse();
 
         Connection conn = null;
         CallableStatement callableStatement = null;
 
         try {
-
             DriverManager.registerDriver(new OracleDriver());
 
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
@@ -49,7 +47,7 @@ public class AuthorizationComponent  extends CommonComponent {
             callableStatement.registerOutParameter(6, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
-            //this is the main line
+
             response.setResult(callableStatement.getString(1));
             response.setFio(callableStatement.getString(4));
             response.setPhone(callableStatement.getString(5));

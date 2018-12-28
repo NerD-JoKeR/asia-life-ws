@@ -53,7 +53,6 @@ public class CalculatorFreedomKidsComponent extends CommonComponent {
             callableStatement.setInt(13, request.getHD());
             callableStatement.setInt(14, request.getTTV());
 
-
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(15, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(16, java.sql.Types.VARCHAR);
@@ -67,7 +66,7 @@ public class CalculatorFreedomKidsComponent extends CommonComponent {
             callableStatement.registerOutParameter(24, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
-            //this is the main line
+
             response.setNumber(callableStatement.getString(1));
             response.setOutDB(callableStatement.getString(15));
             response.setOutADB(callableStatement.getString(16));
@@ -93,7 +92,6 @@ public class CalculatorFreedomKidsComponent extends CommonComponent {
                 e.printStackTrace();
             }
         }
-
         return response;
     }
 }

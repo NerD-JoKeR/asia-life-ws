@@ -23,14 +23,12 @@ public class ChangePassCabAgentComponent extends CommonComponent {
             return commonResponse;
         }
 
-
         ChangePassCabAgentResponse response = new ChangePassCabAgentResponse();
 
         Connection conn = null;
         CallableStatement callableStatement = null;
 
         try {
-
             DriverManager.registerDriver(new OracleDriver());
 
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
@@ -50,8 +48,6 @@ public class ChangePassCabAgentComponent extends CommonComponent {
             callableStatement.registerOutParameter(6, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
-
-            //this is the main line
 
             response.setChangePassResult(callableStatement.getInt(1));
             response.setChangePassMessage(callableStatement.getString(6));

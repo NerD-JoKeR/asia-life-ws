@@ -36,18 +36,13 @@ public class CommonComponent {
 
             callableStatement.execute();
 
-
             String sessionStatus = callableStatement.getString(1);
-
-
-            //TODO in DB create session statuses by this names below
 
             if(sessionStatus.equals("EXPIRED")){
                 response.setSuccess(false);
                 response.setMessage("Web-Service session is expired. Please, update your SessionID and try again!");
                 return response;
             }
-
             callableStatement.close();
             conn.close();
         } catch (Exception ex) {
@@ -60,7 +55,6 @@ public class CommonComponent {
                 e.printStackTrace();
             }
         }
-
         return null;
     }
 }

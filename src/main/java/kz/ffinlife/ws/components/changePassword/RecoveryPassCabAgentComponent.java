@@ -1,7 +1,6 @@
 package kz.ffinlife.ws.components.changePassword;
 
-import ffinlife.ws.ChangePassCabAgentRequest;
-import ffinlife.ws.ChangePassCabAgentResponse;
+
 import ffinlife.ws.RecoveryPassCabAgentRequest;
 import ffinlife.ws.RecoveryPassCabAgentResponse;
 import kz.ffinlife.ws.components.common.CommonComponent;
@@ -24,14 +23,12 @@ public class RecoveryPassCabAgentComponent extends CommonComponent {
             return commonResponse;
         }
 
-
         RecoveryPassCabAgentResponse response = new RecoveryPassCabAgentResponse();
 
         Connection conn = null;
         CallableStatement callableStatement = null;
 
         try {
-
             DriverManager.registerDriver(new OracleDriver());
 
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
@@ -42,18 +39,14 @@ public class RecoveryPassCabAgentComponent extends CommonComponent {
 
             callableStatement = conn.prepareCall(sql);
 
-            //TODO change
             callableStatement.setString(2, request.getAgentLogin());
             callableStatement.setString(3, request.getEmail());
             callableStatement.setString(4, request.getAnswer());
-
 
             callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
             callableStatement.registerOutParameter(5, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
-
-            //this is the main line
 
             response.setRecoveryPassCabAgentResult(callableStatement.getInt(1));
             response.setRecoveryPassCabAgentMessage(callableStatement.getString(5));

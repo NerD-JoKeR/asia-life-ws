@@ -24,7 +24,6 @@ public class CustomAuthenticationEntryPoint extends BasicAuthenticationEntryPoin
 
         PrintWriter writer = response.getWriter();
         writer.println("HTTP Status 401 : " + authException.getMessage());
-
     }
 
     @Override

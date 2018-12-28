@@ -28,7 +28,6 @@ public class CalculatorCabRewardComponent extends CommonComponent {
         CallableStatement callableStatement = null;
 
         try {
-
             DriverManager.registerDriver(new OracleDriver()); //oracle driver
 
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife"; //connection to DB
@@ -54,7 +53,7 @@ public class CalculatorCabRewardComponent extends CommonComponent {
 
 
             callableStatement.execute();
-            //this is the main line to the return response
+
             response.setCabRewardResult(callableStatement.getInt(1));
             response.setCommissionAmount(callableStatement.getString(8));
             response.setUnitsAmount(callableStatement.getString(9));

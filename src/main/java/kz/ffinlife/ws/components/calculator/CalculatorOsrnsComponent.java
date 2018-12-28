@@ -31,7 +31,6 @@ public class CalculatorOsrnsComponent extends CommonComponent {
         CallableStatement callableStatement = null;
 
         try {
-
             DriverManager.registerDriver(new OracleDriver()); //oracle driver
 
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife"; //connection to DB
@@ -46,13 +45,12 @@ public class CalculatorOsrnsComponent extends CommonComponent {
             callableStatement.setDouble(3, request.getYearFond());
             callableStatement.setInt(4, request.getColSotr());
 
-
             callableStatement.registerOutParameter(1, java.sql.Types.DOUBLE);
             callableStatement.registerOutParameter(5, java.sql.Types.DOUBLE);
             callableStatement.registerOutParameter(6, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
-            //this is the main line to the return response
+
             response.setPremKz(callableStatement.getString(1));
             response.setSumStrahKz(callableStatement.getString(5));
             response.setErr(callableStatement.getString(6));

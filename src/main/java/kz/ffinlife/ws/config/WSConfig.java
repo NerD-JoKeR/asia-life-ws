@@ -9,7 +9,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurationSupport;
-import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.server.endpoint.adapter.DefaultMethodEndpointAdapter;
 import org.springframework.ws.server.endpoint.adapter.method.MarshallingPayloadMethodProcessor;
 import org.springframework.ws.server.endpoint.adapter.method.MethodArgumentResolver;
@@ -26,22 +25,22 @@ import java.util.List;
 @Configuration
 public class WSConfig extends WsConfigurationSupport/* WsConfigurerAdapter */ {
 
+    @Bean(name = "ffinlife")
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema schema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("FFINLifePort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://ffinlife/ws");
+        wsdl11Definition.setSchema(schema);
+        return wsdl11Definition;
+    }
+
     @Bean
     public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean(servlet, "/ws/*");
-    }
-
-    @Bean(name = "ffinlife")
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema schema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("FFINLifePort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://ffinlife/ws/records");
-        wsdl11Definition.setSchema(schema);
-        return wsdl11Definition;
     }
 
     @Bean
@@ -74,5 +73,4 @@ public class WSConfig extends WsConfigurationSupport/* WsConfigurerAdapter */ {
     public XsdSchema schema() {
         return new SimpleXsdSchema(new ClassPathResource("schema/schema.xsd"));
     }
-
 }

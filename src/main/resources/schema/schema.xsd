@@ -1,10 +1,5 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:ffin="http://ffinlife/ws"
-           xmlns:tns="http://ffinlife/ws"
-           xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
-           targetNamespace="http://ffinlife/ws"
-           elementFormDefault="qualified">
-
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ffin="http://ffinlife/ws"
+           targetNamespace="http://ffinlife/ws" elementFormDefault="qualified">
 
     <xs:complexType name="commonRequest">
         <xs:sequence>
@@ -12,51 +7,10 @@
         </xs:sequence>
     </xs:complexType>
 
-
     <xs:complexType name="commonResponse">
         <xs:sequence>
             <xs:element type="xs:boolean" name="success" default="true"/>
             <xs:element type="xs:string" name="message"/>
-        </xs:sequence>
-    </xs:complexType>
-
-
-    <xs:element name="getMTOMRequest">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="ffin:commonRequest">
-                    <xs:sequence>
-                        <xs:element name="docNumber" type="xs:int"/>
-                    </xs:sequence>
-                </xs:extension>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="getMTOMResponse">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="ffin:commonResponse">
-                    <xs:sequence>
-                        <xs:element name="mtomDoc" type="tns:mtom"/>
-                    </xs:sequence>
-                </xs:extension>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-
-    <xs:complexType name="mtom">
-        <xs:sequence>
-            <xs:element name="documentMTOM" type="tns:documentMTOM"/>
-        </xs:sequence>
-    </xs:complexType>
-
-
-    <xs:complexType name="documentMTOM">
-        <xs:sequence>
-            <xs:element name="name" type="xs:string"/>
-            <xs:element name="content" type="xs:base64Binary" xmime:expectedContentTypes="text/xml"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -70,7 +24,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
 
     <xs:element name="authorizationWSResponse">
         <xs:complexType>
@@ -96,14 +49,11 @@
         </xs:complexType>
     </xs:element>
 
-
     <xs:element name="authorizationResponse">
         <xs:complexType>
             <xs:complexContent>
                 <xs:extension base="ffin:commonResponse">
                     <xs:sequence>
-                        <xs:element name="iin" type="xs:string"/>
-                        <xs:element name="password" type="xs:string"/>
                         <xs:element name="fio" type="xs:string"/>
                         <xs:element name="phone" type="xs:string"/>
                         <xs:element name="email" type="xs:string"/>
@@ -128,7 +78,6 @@
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
-
 
     <xs:element name="authorizationCabAgentResponse">
         <xs:complexType>
@@ -161,7 +110,6 @@
         </xs:complexType>
     </xs:element>
 
-
     <xs:element name="registrationCabAgentResponse">
         <xs:complexType>
             <xs:complexContent>
@@ -169,6 +117,60 @@
                     <xs:sequence>
                         <xs:element name="cabResult" type="xs:int"/>
                         <xs:element name="cabMessage" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="registrationClientRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="docNumber" type="xs:string"/>
+                        <xs:element name="inn" type="xs:string"/>
+                        <xs:element name="phone" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="registrationClientResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="result" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="clientVerifyRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="inn" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="clientVerifyResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="result" type="xs:string"/>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
@@ -226,7 +228,6 @@
         </xs:complexType>
     </xs:element>
 
-
     <xs:element name="registrationFreedomTravelResponse">
         <xs:complexType>
             <xs:complexContent>
@@ -260,7 +261,6 @@
         </xs:complexType>
     </xs:element>
 
-
     <xs:element name="repWorkActCabResponse">
         <xs:complexType>
             <xs:complexContent>
@@ -276,29 +276,51 @@
 
 
 
-    <xs:element name="changePasswordRequest">
+    <xs:element name="cabMTOMRequest">
         <xs:complexType>
             <xs:complexContent>
                 <xs:extension base="ffin:commonRequest">
-                        <xs:sequence>
-                            <xs:element name="iin" type="xs:string"/>
-                            <xs:element name="password" type="xs:string"/>
-                            <xs:element name="oldPass" type="xs:string"/>
-                        </xs:sequence>
+                    <xs:sequence>
+                        <xs:element name="docNumber" type="xs:int"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cabMTOMResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="mtom" type="xs:base64Binary"/>
+                    </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
 
+
+    <xs:element name="changePasswordRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                        <xs:sequence>
+                            <xs:element name="iin" type="xs:string"/>
+                            <xs:element name="oldPass" type="xs:string"/>
+                            <xs:element name="password" type="xs:string"/>
+                        </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="changePasswordResponse">
         <xs:complexType>
             <xs:complexContent>
                 <xs:extension base="ffin:commonResponse">
                     <xs:sequence>
-                        <xs:element name="iin" type="xs:string"/>
-                        <xs:element name="password" type="xs:string"/>
-                        <xs:element name="oldPass" type="xs:string"/>
                         <xs:element name="result" type="xs:string"/>
                     </xs:sequence>
                 </xs:extension>
@@ -322,7 +344,6 @@
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
-
 
     <xs:element name="changePassCabAgentResponse">
         <xs:complexType>
@@ -352,7 +373,6 @@
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
-
 
     <xs:element name="recoveryPassCabAgentResponse">
         <xs:complexType>
@@ -391,7 +411,6 @@
         </xs:complexType>
     </xs:element>
 
-
     <xs:element name="cabPayRollResponse">
         <xs:complexType>
             <xs:complexContent>
@@ -419,7 +438,6 @@
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
-
 
     <xs:element name="calculatorOsrnsResponse">
         <xs:complexType>
@@ -459,7 +477,6 @@
                 </xs:complexContent>
         </xs:complexType>
     </xs:element>
-
 
     <xs:element name="calculatorFreedomTravelResponse">
         <xs:complexType>
@@ -502,7 +519,6 @@
         </xs:complexType>
     </xs:element>
 
-
     <xs:element name="calculatorFreedomFutureResponse">
         <xs:complexType>
             <xs:complexContent>
@@ -542,7 +558,6 @@
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
-
 
     <xs:element name="calculatorFreedomProtectResponse">
         <xs:complexType>
@@ -586,7 +601,6 @@
         </xs:complexType>
     </xs:element>
 
-
     <xs:element name="calculatorFreedomKidsResponse">
         <xs:complexType>
             <xs:complexContent>
@@ -628,7 +642,6 @@
         </xs:complexType>
     </xs:element>
 
-
     <xs:element name="calculatorCabRewardResponse">
         <xs:complexType>
             <xs:complexContent>
@@ -658,7 +671,6 @@
         </xs:complexType>
     </xs:element>
 
-
     <xs:element name="cursorResponse">
         <xs:complexType>
             <xs:complexContent>
@@ -670,7 +682,6 @@
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
-
 
     <xs:complexType name="document">
         <xs:sequence>
@@ -696,7 +707,6 @@
         </xs:complexType>
     </xs:element>
 
-
     <xs:element name="cursorProductsResponse">
         <xs:complexType>
             <xs:complexContent>
@@ -719,7 +729,6 @@
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
-
 
     <xs:element name="cursorDepartmentsResponse">
         <xs:complexType>
@@ -744,7 +753,6 @@
         </xs:complexType>
     </xs:element>
 
-
     <xs:element name="cursorRegionsResponse">
         <xs:complexType>
             <xs:complexContent>
@@ -768,7 +776,6 @@
         </xs:complexType>
     </xs:element>
 
-
     <xs:element name="cursorSubDepResponse">
         <xs:complexType>
             <xs:complexContent>
@@ -788,6 +795,7 @@
             <xs:element name="name" type="xs:string" />
         </xs:sequence>
     </xs:complexType>
+
 
 
 </xs:schema>

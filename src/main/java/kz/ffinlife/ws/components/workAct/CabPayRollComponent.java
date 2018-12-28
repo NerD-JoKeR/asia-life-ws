@@ -28,13 +28,12 @@ public class CabPayRollComponent extends CommonComponent {
         CallableStatement callableStatement = null;
 
         try {
-
             DriverManager.registerDriver(new OracleDriver()); //oracle driver
 
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife"; //connection to DB
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
-            //TODO change call sql request
+
             String sql = "{? = call cab_rep_payroll_2.runReport(?,?,?,?,?,?,?,?,?,?)}"; // connected to webserevice and call method from LIC
 
             callableStatement = conn.prepareCall(sql);
@@ -52,9 +51,8 @@ public class CabPayRollComponent extends CommonComponent {
 
             callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
 
-
             callableStatement.execute();
-            //this is the main line to the return response
+
             response.setCabPAyRollResult(callableStatement.getInt(1));
             response.setSuccess(true);
 

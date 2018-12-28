@@ -27,7 +27,6 @@ public class CalculatorFreedomProtectComponent extends CommonComponent{
         Connection conn = null;
         CallableStatement callableStatement = null;
 
-
         try {
             DriverManager.registerDriver(new OracleDriver());
 
@@ -47,7 +46,6 @@ public class CalculatorFreedomProtectComponent extends CommonComponent{
             callableStatement.setInt(7, request.getStrSumNs());
             callableStatement.setInt(8, request.getStrSumBody());
 
-
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(9, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(10, java.sql.Types.VARCHAR);
@@ -55,7 +53,7 @@ public class CalculatorFreedomProtectComponent extends CommonComponent{
             callableStatement.registerOutParameter(12, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
-            //this is the main line
+
             response.setNumber(callableStatement.getString(1));
             response.setOutStrSumDop(callableStatement.getString(9));
             response.setOutStrSumNs(callableStatement.getString(10));
@@ -75,7 +73,6 @@ public class CalculatorFreedomProtectComponent extends CommonComponent{
                 e.printStackTrace();
             }
         }
-
         return response;
     }
 }

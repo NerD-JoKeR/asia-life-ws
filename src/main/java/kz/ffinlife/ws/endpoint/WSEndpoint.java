@@ -16,7 +16,10 @@ import kz.ffinlife.ws.components.changePassword.ChangePasswordComponent;
 import kz.ffinlife.ws.components.changePassword.RecoveryPassCabAgentComponent;
 import kz.ffinlife.ws.components.cursor.*;
 import kz.ffinlife.ws.components.registration.RegistrationCabAgentComponent;
+import kz.ffinlife.ws.components.registration.RegistrationClientComponent;
 import kz.ffinlife.ws.components.registration.RegistrationFreedomTravelComponent;
+import kz.ffinlife.ws.components.registration.VerifyClientComponent;
+import kz.ffinlife.ws.components.workAct.CabDocumentsComponent;
 import kz.ffinlife.ws.components.workAct.CabPayRollComponent;
 import kz.ffinlife.ws.components.workAct.CabRepWorkActComponent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,11 +66,23 @@ public class WSEndpoint {
 
 
     @Autowired
+    private RegistrationClientComponent registrationClientComponent;
+
+
+    @Autowired
+    private VerifyClientComponent verifyClientComponent;
+
+
+    @Autowired
     private CabRepWorkActComponent cabRepWorkActComponent;
 
 
     @Autowired
     private CabPayRollComponent cabPayRollComponent;
+
+
+    @Autowired
+    private CabDocumentsComponent cabDocumentsComponent;
 
 
     @Autowired
@@ -141,10 +156,28 @@ public class WSEndpoint {
         return registrationCabAgentComponent.registrationCabAgent(request);
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "registrationClientRequest")
+    @ResponsePayload
+    public RegistrationClientResponse registrationClientRequest(@RequestPayload RegistrationClientRequest request) {
+        return registrationClientComponent.regCln(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "clientVerifyRequest")
+    @ResponsePayload
+    public ClientVerifyResponse clientVerifyRequest(@RequestPayload ClientVerifyRequest request) {
+        return verifyClientComponent.verKln(request);
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cabPayRollRequest")
     @ResponsePayload
     public CabPayRollResponse cabPayRollRequest(@RequestPayload CabPayRollRequest request) {
         return cabPayRollComponent.cabPayRoll(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cabMTOMRequest")
+    @ResponsePayload
+    public CabMTOMResponse getMTOMRequest(@RequestPayload CabMTOMRequest request) {
+        return cabDocumentsComponent.mtom(request);
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "repWorkActCabRequest")
@@ -225,13 +258,11 @@ public class WSEndpoint {
         return cursorProductComponent.cursorProduct(request);
     }
 
-
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorDepartmentsRequest")
     @ResponsePayload
     public CursorDepartmentsResponse cursorDepartmentsRequest(@RequestPayload CursorDepartmentsRequest request) {
         return cursorDepartmentComponent.cursorDepartment(request);
     }
-
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorRegionsRequest")
     @ResponsePayload
@@ -239,11 +270,9 @@ public class WSEndpoint {
         return cursorRegionComponent.cursorRegions(request);
     }
 
-
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorSubDepRequest")
     @ResponsePayload
     public CursorSubDepResponse cursorSubDepRequest(@RequestPayload CursorSubDepRequest request) {
         return cursorSubDepComponent.cursorSubDep(request);
     }
-
 }

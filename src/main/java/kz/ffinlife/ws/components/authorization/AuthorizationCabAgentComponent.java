@@ -20,14 +20,12 @@ public class AuthorizationCabAgentComponent extends CommonComponent {
             return commonResponse;
         }
 
-
         AuthorizationCabAgentResponse response = new AuthorizationCabAgentResponse();
 
         Connection conn = null;
         CallableStatement callableStatement = null;
 
         try {
-
             DriverManager.registerDriver(new OracleDriver());
 
             String url = "jdbc:oracle:thin:@10.0.0.10:1526:bsolife";
@@ -45,7 +43,7 @@ public class AuthorizationCabAgentComponent extends CommonComponent {
             callableStatement.registerOutParameter(4, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
-            //this is the main line
+
             response.setResult(callableStatement.getString(1));
             response.setName(callableStatement.getString(4));
             response.setSuccess(true);
