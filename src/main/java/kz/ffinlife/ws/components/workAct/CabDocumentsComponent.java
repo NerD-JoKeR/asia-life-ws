@@ -33,13 +33,14 @@ public class CabDocumentsComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{? = call webservice.get_reports(?)}"; // connected to webserevice and call method from LIC
+            String sql = "{? = call webservice.get_reports(?,?)}"; // connected to webserevice and call method from LIC
 
             callableStatement = conn.prepareCall(sql);
 
             callableStatement.setInt(2, request.getDocNumber());
 
             callableStatement.registerOutParameter(1, java.sql.Types.BLOB);
+            callableStatement.registerOutParameter(3, java.sql.Types.VARCHAR);
 
 //            Statement statement = conn.createStatement();
 //            ResultSet rs = statement.executeQuery("SELECT BLOBDOCUMENT FROM cab_reports where PK_ID = " + request.getDocNumber());
@@ -59,6 +60,7 @@ public class CabDocumentsComponent extends CommonComponent {
             callableStatement.execute();
 
             byte[] byteData = callableStatement.getBytes(1);
+            response.setType(callableStatement.getString(3));
             response.setMtom(byteData);
             response.setSuccess(true);
 

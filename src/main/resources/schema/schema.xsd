@@ -85,6 +85,8 @@
                 <xs:extension base="ffin:commonResponse">
                     <xs:sequence>
                         <xs:element name="name" type="xs:string"/>
+                        <xs:element name="agentID" type="xs:string"/>
+                        <xs:element name="roleID" type="xs:string" />
                         <xs:element name="result" type="xs:string"/>
                     </xs:sequence>
                 </xs:extension>
@@ -130,9 +132,10 @@
             <xs:complexContent>
                 <xs:extension base="ffin:commonRequest">
                     <xs:sequence>
-                        <xs:element name="docNumber" type="xs:string"/>
                         <xs:element name="inn" type="xs:string"/>
+                        <xs:element name="docNumber" type="xs:string"/>
                         <xs:element name="phone" type="xs:string"/>
+                        <xs:element name="email" type="xs:string"/>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
@@ -276,6 +279,32 @@
 
 
 
+    <xs:element name="proofPaymentRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="proofPaymentResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="result" type="xs:string" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
     <xs:element name="cabMTOMRequest">
         <xs:complexType>
             <xs:complexContent>
@@ -294,6 +323,7 @@
                 <xs:extension base="ffin:commonResponse">
                     <xs:sequence>
                         <xs:element name="mtom" type="xs:base64Binary"/>
+                        <xs:element name="type" type="xs:string"/>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
@@ -630,7 +660,7 @@
             <xs:complexContent>
                 <xs:extension base="ffin:commonRequest">
                     <xs:sequence>
-                        <xs:element name="agentLogin" type="xs:string"/>
+                        <xs:element name="agentID" type="xs:string"/>
                         <xs:element name="productId" type="xs:string"/>
                         <xs:element name="bonusAmount" type="xs:string"/>
                         <xs:element name="termInsurance" type="xs:string"/>
@@ -693,8 +723,41 @@
             <xs:element name="col6" type="xs:string" />
             <xs:element name="col7" type="xs:string" />
             <xs:element name="col8" type="xs:string" />
+            <xs:element name="col9" type="xs:string" />
+            <xs:element name="col10" type="xs:string" />
         </xs:sequence>
     </xs:complexType>
+
+
+
+
+    <xs:element name="cursorAgentIDRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="departmentID" type="xs:string"/>
+                        <xs:element name="regionID" type="xs:string"/>
+                        <xs:element name="subDepID" type="xs:string"/>
+                        <xs:element name="FIO" type="xs:string"/>
+                        <xs:element name="agentNumber" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cursorAgentIDResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="agentsID" type="ffin:document2" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
 
 
 
@@ -789,6 +852,132 @@
     </xs:element>
 
 
+
+    <xs:element name="cursorAgentTreeRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="agentID" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cursorAgentTreeResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="agentTree" type="ffin:document2" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="cursorAutoPayRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:int"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cursorAutoPayResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="info" type="ffin:document5" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="cursorWorkActTableRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="agentID" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cursorWorkActTableResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="agentInfo" type="ffin:document4" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+
+    <xs:element name="cursorAgentLevelRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cursorAgentLevelResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="agentLevels" type="ffin:document3" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="cursorAgentConditionRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cursorAgentConditionResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="agentConditions" type="ffin:document3" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
     <xs:complexType name="document1">
         <xs:sequence>
             <xs:element name="id" type="xs:string" />
@@ -797,5 +986,47 @@
     </xs:complexType>
 
 
+    <xs:complexType name="document2">
+        <xs:sequence>
+            <xs:element name="agentID" type="xs:string" />
+            <xs:element name="managerID" type="xs:string" />
+            <xs:element name="FIO" type="xs:string" />
+            <xs:element name="login" type="xs:string" />
+            <xs:element name="agentNo" type="xs:string" />
+            <xs:element name="agentLevel" type="xs:string" />
+            <xs:element name="regionID" type="xs:string" />
+            <xs:element name="depID" type="xs:string" />
+            <xs:element name="subDepID" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="document3">
+        <xs:sequence>
+            <xs:element name="No" type="xs:string" />
+            <xs:element name="Text" type="xs:string" />
+            <xs:element name="Award" type="xs:string" />
+            <xs:element name="Tarif" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="document4">
+        <xs:sequence>
+            <xs:element name="department" type="xs:string" />
+            <xs:element name="region" type="xs:string" />
+            <xs:element name="agentNo" type="xs:string" />
+            <xs:element name="FIO" type="xs:string" />
+            <xs:element name="award" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="document5">
+        <xs:sequence>
+            <xs:element name="data" type="xs:string" />
+            <xs:element name="sum" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
 
 </xs:schema>

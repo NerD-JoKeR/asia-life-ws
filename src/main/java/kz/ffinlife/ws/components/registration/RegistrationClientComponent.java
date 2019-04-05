@@ -34,13 +34,14 @@ public class RegistrationClientComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{? = call webservice.kab_kln_reg(?,?,?)}"; // connected to webserevice and call method from LIC
+            String sql = "{? = call webservice.kab_kln_reg(?,?,?,?)}"; // connected to webserevice and call method from LIC
 
             callableStatement = conn.prepareCall(sql);
 
-            callableStatement.setString(2, request.getDocNumber());
-            callableStatement.setString(3, request.getInn());
+            callableStatement.setString(2, request.getInn());
+            callableStatement.setString(3, request.getDocNumber());
             callableStatement.setString(4, request.getPhone());
+            callableStatement.setString(5, request.getEmail());
 
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
 

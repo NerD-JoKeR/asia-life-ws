@@ -10,16 +10,16 @@ import java.sql.*;
 
 
 @Component
-public class CursorProductComponent extends CommonComponent {
+public class CursorAutoPayComponent extends CommonComponent {
 
-    public CursorProductsResponse cursorProduct(CursorProductsRequest request){
+    public CursorAutoPayResponse cursorAuto(CursorAutoPayRequest request){
 
-        CursorProductsResponse commonResponse = checkSession(request, new CursorProductsResponse());
+        CursorAutoPayResponse commonResponse = checkSession(request, new CursorAutoPayResponse());
         if(commonResponse != null){
             return commonResponse;
         }
 
-        CursorProductsResponse response = new CursorProductsResponse();
+        CursorAutoPayResponse response = new CursorAutoPayResponse();
 
         Connection conn = null;
         CallableStatement callableStatement = null;
@@ -31,9 +31,11 @@ public class CursorProductComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{ ? = call cab_util_pck.get_prod}";
+            String sql = "{ ? = call WEBSERVICE.graphic_pay(?) }";
 
             callableStatement = conn.prepareCall(sql);
+
+            callableStatement.setInt(2, request.getId());
 
             callableStatement.registerOutParameter (1, OracleTypes.CURSOR);
 
@@ -42,12 +44,12 @@ public class CursorProductComponent extends CommonComponent {
             ResultSet rs = (ResultSet)callableStatement.getObject (1);
             response.setSuccess(true);
             while (rs.next()) {
-                String ID = rs.getString("LIC_ID");
-                String ProductName = rs.getString("COVER_NAME");
-                Document1 document1 = new Document1();
-                document1.setId(ID);
-                document1.setName(ProductName);
-                response.getProducts().add(document1);
+                String col1 = rs.getString("C_PLAN_DATE");
+                String col2 = rs.getString("BASE_PAYMENT");
+                Document5 doc = new Document5();
+                doc.setData(col1);
+                doc.setSum(col2);
+                response.getInfo().add(doc);
             }
             rs.getArray(0);
 

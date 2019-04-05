@@ -1,25 +1,26 @@
-package kz.ffinlife.ws.components.cursor;
+package kz.ffinlife.ws.components.methods;
 
-import ffinlife.ws.*;
+
+import ffinlife.ws.ProofPaymentRequest;
+import ffinlife.ws.ProofPaymentResponse;
 import kz.ffinlife.ws.components.common.CommonComponent;
 import oracle.jdbc.driver.OracleDriver;
-import oracle.jdbc.driver.OracleTypes;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
 
 
 @Component
-public class CursorProductComponent extends CommonComponent {
+public class ProofPaymentComponent extends CommonComponent {
 
-    public CursorProductsResponse cursorProduct(CursorProductsRequest request){
+    public ProofPaymentResponse payment(ProofPaymentRequest request){
 
-        CursorProductsResponse commonResponse = checkSession(request, new CursorProductsResponse());
+        ProofPaymentResponse commonResponse = checkSession(request, new ProofPaymentResponse());
         if(commonResponse != null){
             return commonResponse;
         }
 
-        CursorProductsResponse response = new CursorProductsResponse();
+        ProofPaymentResponse response = new ProofPaymentResponse();
 
         Connection conn = null;
         CallableStatement callableStatement = null;
@@ -31,27 +32,19 @@ public class CursorProductComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{ ? = call cab_util_pck.get_prod}";
+            String sql = "{ ? = call WEBSERVICE.kab_kln_putpay(?) }";
 
             callableStatement = conn.prepareCall(sql);
 
-            callableStatement.registerOutParameter (1, OracleTypes.CURSOR);
+            callableStatement.setString(2,request.getId());
+
+            callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
 
             callableStatement.execute ();
 
-            ResultSet rs = (ResultSet)callableStatement.getObject (1);
+            response.setResult(callableStatement.getString(1));
             response.setSuccess(true);
-            while (rs.next()) {
-                String ID = rs.getString("LIC_ID");
-                String ProductName = rs.getString("COVER_NAME");
-                Document1 document1 = new Document1();
-                document1.setId(ID);
-                document1.setName(ProductName);
-                response.getProducts().add(document1);
-            }
-            rs.getArray(0);
 
-            rs.close();
             callableStatement.close();
             conn.close();
 

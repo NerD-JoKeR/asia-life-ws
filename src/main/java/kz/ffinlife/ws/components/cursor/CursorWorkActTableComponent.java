@@ -1,6 +1,8 @@
 package kz.ffinlife.ws.components.cursor;
 
-import ffinlife.ws.*;
+import ffinlife.ws.CursorWorkActTableRequest;
+import ffinlife.ws.CursorWorkActTableResponse;
+import ffinlife.ws.Document4;
 import kz.ffinlife.ws.components.common.CommonComponent;
 import oracle.jdbc.driver.OracleDriver;
 import oracle.jdbc.driver.OracleTypes;
@@ -10,16 +12,16 @@ import java.sql.*;
 
 
 @Component
-public class CursorProductComponent extends CommonComponent {
+public class CursorWorkActTableComponent extends CommonComponent {
 
-    public CursorProductsResponse cursorProduct(CursorProductsRequest request){
+    public CursorWorkActTableResponse table(CursorWorkActTableRequest request){
 
-        CursorProductsResponse commonResponse = checkSession(request, new CursorProductsResponse());
+        CursorWorkActTableResponse commonResponse = checkSession(request, new CursorWorkActTableResponse());
         if(commonResponse != null){
             return commonResponse;
         }
 
-        CursorProductsResponse response = new CursorProductsResponse();
+        CursorWorkActTableResponse response = new CursorWorkActTableResponse();
 
         Connection conn = null;
         CallableStatement callableStatement = null;
@@ -31,9 +33,11 @@ public class CursorProductComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{ ? = call cab_util_pck.get_prod}";
+            String sql = "{ ? = call cab_util_pck.get_agents_info(?)}";
 
             callableStatement = conn.prepareCall(sql);
+
+            callableStatement.setString(2, request.getAgentID());
 
             callableStatement.registerOutParameter (1, OracleTypes.CURSOR);
 
@@ -42,12 +46,18 @@ public class CursorProductComponent extends CommonComponent {
             ResultSet rs = (ResultSet)callableStatement.getObject (1);
             response.setSuccess(true);
             while (rs.next()) {
-                String ID = rs.getString("LIC_ID");
-                String ProductName = rs.getString("COVER_NAME");
-                Document1 document1 = new Document1();
-                document1.setId(ID);
-                document1.setName(ProductName);
-                response.getProducts().add(document1);
+                String dep = rs.getString("DEP_NAME");
+                String region = rs.getString("REGION_NAME");
+                String agentNo = rs.getString("AGENT_NO");
+                String FIO = rs.getString("FULLNAME");
+                String award = rs.getString("CS");
+                Document4 doc = new Document4();
+                doc.setDepartment(dep);
+                doc.setFIO(FIO);
+                doc.setAgentNo(agentNo);
+                doc.setRegion(region);
+                doc.setAward(award);
+                response.getAgentInfo().add(doc);
             }
             rs.getArray(0);
 

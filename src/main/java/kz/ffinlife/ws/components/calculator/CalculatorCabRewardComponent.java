@@ -38,7 +38,7 @@ public class CalculatorCabRewardComponent extends CommonComponent {
 
             callableStatement = conn.prepareCall(sql);
 
-            callableStatement.setString(2, request.getAgentLogin());
+            callableStatement.setString(2, request.getAgentID());
             callableStatement.setString(3, request.getProductId());
             callableStatement.setString(4, request.getBonusAmount());
             callableStatement.setString(5, request.getTermInsurance());
@@ -55,8 +55,8 @@ public class CalculatorCabRewardComponent extends CommonComponent {
             callableStatement.execute();
 
             response.setCabRewardResult(callableStatement.getInt(1));
-            response.setCommissionAmount(callableStatement.getString(8));
-            response.setUnitsAmount(callableStatement.getString(9));
+            response.setUnitsAmount(callableStatement.getString(8));
+            response.setCommissionAmount(callableStatement.getString(9));
             response.setCabRewardMessage(callableStatement.getString(10));
             response.setSuccess(true);
 

@@ -6,20 +6,21 @@ import oracle.jdbc.driver.OracleDriver;
 import oracle.jdbc.driver.OracleTypes;
 import org.springframework.stereotype.Component;
 
+
 import java.sql.*;
 
 
 @Component
-public class CursorProductComponent extends CommonComponent {
+public class CursorAgentLevelComponent  extends CommonComponent {
 
-    public CursorProductsResponse cursorProduct(CursorProductsRequest request){
+    public CursorAgentLevelResponse cursorLevel(CursorAgentLevelRequest request){
 
-        CursorProductsResponse commonResponse = checkSession(request, new CursorProductsResponse());
+        CursorAgentLevelResponse commonResponse = checkSession(request, new CursorAgentLevelResponse());
         if(commonResponse != null){
             return commonResponse;
         }
 
-        CursorProductsResponse response = new CursorProductsResponse();
+        CursorAgentLevelResponse response = new CursorAgentLevelResponse();
 
         Connection conn = null;
         CallableStatement callableStatement = null;
@@ -31,7 +32,7 @@ public class CursorProductComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{ ? = call cab_util_pck.get_prod}";
+            String sql = "{ ? = call cab_util_pck.get_levels}";
 
             callableStatement = conn.prepareCall(sql);
 
@@ -42,12 +43,14 @@ public class CursorProductComponent extends CommonComponent {
             ResultSet rs = (ResultSet)callableStatement.getObject (1);
             response.setSuccess(true);
             while (rs.next()) {
-                String ID = rs.getString("LIC_ID");
-                String ProductName = rs.getString("COVER_NAME");
-                Document1 document1 = new Document1();
-                document1.setId(ID);
-                document1.setName(ProductName);
-                response.getProducts().add(document1);
+                String ID = rs.getString("NUMBER_ID");
+                String Text = rs.getString("TEXT");
+                String Tarif = rs.getString("TARIF");
+                Document3 doc3 = new Document3();
+                doc3.setNo(ID);
+                doc3.setText(Text);
+                doc3.setTarif(Tarif);
+                response.getAgentLevels().add(doc3);
             }
             rs.getArray(0);
 

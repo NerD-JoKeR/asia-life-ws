@@ -10,16 +10,16 @@ import java.sql.*;
 
 
 @Component
-public class CursorProductComponent extends CommonComponent {
+public class CursorAgentTreeComponent extends CommonComponent {
 
-    public CursorProductsResponse cursorProduct(CursorProductsRequest request){
+    public CursorAgentTreeResponse cursorAgentTree(CursorAgentTreeRequest request){
 
-        CursorProductsResponse commonResponse = checkSession(request, new CursorProductsResponse());
+        CursorAgentTreeResponse commonResponse = checkSession(request, new CursorAgentTreeResponse());
         if(commonResponse != null){
             return commonResponse;
         }
 
-        CursorProductsResponse response = new CursorProductsResponse();
+        CursorAgentTreeResponse response = new CursorAgentTreeResponse();
 
         Connection conn = null;
         CallableStatement callableStatement = null;
@@ -31,9 +31,11 @@ public class CursorProductComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{ ? = call cab_util_pck.get_prod}";
+            String sql = "{ ? = call cab_util_pck.get_agent_tree(?)}";
 
             callableStatement = conn.prepareCall(sql);
+
+            callableStatement.setString(2, request.getAgentID());
 
             callableStatement.registerOutParameter (1, OracleTypes.CURSOR);
 
@@ -42,12 +44,18 @@ public class CursorProductComponent extends CommonComponent {
             ResultSet rs = (ResultSet)callableStatement.getObject (1);
             response.setSuccess(true);
             while (rs.next()) {
-                String ID = rs.getString("LIC_ID");
-                String ProductName = rs.getString("COVER_NAME");
-                Document1 document1 = new Document1();
-                document1.setId(ID);
-                document1.setName(ProductName);
-                response.getProducts().add(document1);
+                String ID = rs.getString("AG_ID");
+                String FIO = rs.getString("FULLNAME");
+                String managerID = rs.getString("MANAGER_ID");
+                String agentNo = rs.getString("AGENT_NO");
+                String agetnLevel = rs.getString("LEV");
+                Document2 document2 = new Document2();
+                document2.setAgentID(ID);
+                document2.setManagerID(managerID);
+                document2.setFIO(FIO);
+                document2.setAgentNo(agentNo);
+                document2.setAgentLevel(agetnLevel);
+                response.getAgentTree().add(document2);
             }
             rs.getArray(0);
 

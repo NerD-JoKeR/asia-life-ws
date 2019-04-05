@@ -10,16 +10,16 @@ import java.sql.*;
 
 
 @Component
-public class CursorProductComponent extends CommonComponent {
+public class CursorAgentConditionComponent extends CommonComponent {
 
-    public CursorProductsResponse cursorProduct(CursorProductsRequest request){
+    public CursorAgentConditionResponse cursorCondition(CursorAgentConditionRequest request){
 
-        CursorProductsResponse commonResponse = checkSession(request, new CursorProductsResponse());
+        CursorAgentConditionResponse commonResponse = checkSession(request, new CursorAgentConditionResponse());
         if(commonResponse != null){
             return commonResponse;
         }
 
-        CursorProductsResponse response = new CursorProductsResponse();
+        CursorAgentConditionResponse response = new CursorAgentConditionResponse();
 
         Connection conn = null;
         CallableStatement callableStatement = null;
@@ -31,7 +31,7 @@ public class CursorProductComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{ ? = call cab_util_pck.get_prod}";
+            String sql = "{ ? = call cab_util_pck.get_conditions}";
 
             callableStatement = conn.prepareCall(sql);
 
@@ -42,12 +42,14 @@ public class CursorProductComponent extends CommonComponent {
             ResultSet rs = (ResultSet)callableStatement.getObject (1);
             response.setSuccess(true);
             while (rs.next()) {
-                String ID = rs.getString("LIC_ID");
-                String ProductName = rs.getString("COVER_NAME");
-                Document1 document1 = new Document1();
-                document1.setId(ID);
-                document1.setName(ProductName);
-                response.getProducts().add(document1);
+                String ID = rs.getString("NUMBER_ID");
+                String TEXT = rs.getString("CONDITIONS");
+                String AWARD = rs.getString("AWARD");
+                Document3 doc3 = new Document3();
+                doc3.setNo(ID);
+                doc3.setText(TEXT);
+                doc3.setAward(AWARD);
+                response.getAgentConditions().add(doc3);
             }
             rs.getArray(0);
 

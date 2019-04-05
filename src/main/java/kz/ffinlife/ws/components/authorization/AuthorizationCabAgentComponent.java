@@ -32,7 +32,7 @@ public class AuthorizationCabAgentComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{ ? = call cab_admin_pck.auth_user(?,?,?) }";
+            String sql = "{ ? = call cab_admin_pck.auth_user(?,?,?,?,?) }";
 
             callableStatement = conn.prepareCall(sql);
 
@@ -41,11 +41,15 @@ public class AuthorizationCabAgentComponent extends CommonComponent {
 
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(4, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(5, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(6, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
 
             response.setResult(callableStatement.getString(1));
             response.setName(callableStatement.getString(4));
+            response.setAgentID(callableStatement.getString(5));
+            response.setRoleID(callableStatement.getString(6));
             response.setSuccess(true);
 
             callableStatement.close();

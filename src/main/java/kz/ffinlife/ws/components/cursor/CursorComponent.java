@@ -57,6 +57,8 @@ public class CursorComponent extends CommonComponent {
                 String col6 = rs.getString("COL6");
                 String col7 = rs.getString("COL7");
                 String col8 = rs.getString("COL8");
+                String col9 = rs.getString("COL9");
+                String col10 = rs.getString("COL10");
                 Document document = new Document();
                 document.setCol1(col1);
                 document.setCol2(col2);
@@ -66,6 +68,8 @@ public class CursorComponent extends CommonComponent {
                 document.setCol6(col6);
                 document.setCol7(col7);
                 document.setCol8(col8);
+                document.setCol9(col9);
+                document.setCol10(col10);
                 response.getCursor().add(document);
             }
             rs.getArray(0);

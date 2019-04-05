@@ -12,16 +12,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String REALM_NAME = "ffinlife";
 
-    @Value("${security.user.name.ffin}")
+    @Value("ffinlife_site")
     private String ffinUsername;
 
-    @Value("${security.user.password.ffin}")
+    @Value("1q3wr2")
     private String ffinPassword;
 
-    @Value("${security.user.name.admin}")
+    @Value("kaspi")
     private String username;
 
-    @Value("${security.user.password.admin}")
+    @Value("kaspi")
     private String password;
 
     @Override

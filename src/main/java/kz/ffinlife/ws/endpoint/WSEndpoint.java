@@ -15,6 +15,7 @@ import kz.ffinlife.ws.components.changePassword.ChangePassCabAgentComponent;
 import kz.ffinlife.ws.components.changePassword.ChangePasswordComponent;
 import kz.ffinlife.ws.components.changePassword.RecoveryPassCabAgentComponent;
 import kz.ffinlife.ws.components.cursor.*;
+import kz.ffinlife.ws.components.methods.ProofPaymentComponent;
 import kz.ffinlife.ws.components.registration.RegistrationCabAgentComponent;
 import kz.ffinlife.ws.components.registration.RegistrationClientComponent;
 import kz.ffinlife.ws.components.registration.RegistrationFreedomTravelComponent;
@@ -43,6 +44,10 @@ public class WSEndpoint {
 
     @Autowired
     private AuthorizationCabAgentComponent authorizationCabAgentComponent;
+
+
+    @Autowired
+    private ProofPaymentComponent proofPaymentComponent;
 
 
     @Autowired
@@ -114,6 +119,26 @@ public class WSEndpoint {
 
 
     @Autowired
+    private CursorWorkActTableComponent cursorWorkActTableComponent;
+
+
+    @Autowired
+    private CursorAgentLevelComponent cursorAgentLevelComponent;
+
+
+    @Autowired
+    private CursorAgentConditionComponent cursorAgentConditionComponent;
+
+
+    @Autowired
+    private CursorAgentTreeComponent cursorAgentTreeComponent;
+
+
+    @Autowired
+    private CursorAgentIDComponent cursorAgentIDComponent;
+
+
+    @Autowired
     private CursorProductComponent cursorProductComponent;
 
 
@@ -127,6 +152,9 @@ public class WSEndpoint {
 
     @Autowired
     private CursorSubDepComponent cursorSubDepComponent;
+
+    @Autowired
+    private CursorAutoPayComponent cursorAutoPayComponent;
 
 
 
@@ -148,6 +176,12 @@ public class WSEndpoint {
     @ResponsePayload
     public AuthorizationCabAgentResponse authorizationCabAgentRequest(@RequestPayload AuthorizationCabAgentRequest request) {
         return authorizationCabAgentComponent.authorizeCabAgent(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "proofPaymentRequest")
+    @ResponsePayload
+    public ProofPaymentResponse proofPaymentRequest(@RequestPayload ProofPaymentRequest request) {
+        return proofPaymentComponent.payment(request);
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "registrationCabAgentRequest")
@@ -252,6 +286,24 @@ public class WSEndpoint {
         return cursorComponent.cursor(request);
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorWorkActTableRequest")
+    @ResponsePayload
+    public CursorWorkActTableResponse cursorWorkActTableRequest(@RequestPayload CursorWorkActTableRequest request) {
+        return cursorWorkActTableComponent.table(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorAgentIDRequest")
+    @ResponsePayload
+    public CursorAgentIDResponse cursorAgentIDRequest(@RequestPayload CursorAgentIDRequest request) {
+        return cursorAgentIDComponent.cursorAgentID(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorAgentTreeRequest")
+    @ResponsePayload
+    public CursorAgentTreeResponse cursorAgentTreeRequest(@RequestPayload CursorAgentTreeRequest request) {
+        return cursorAgentTreeComponent.cursorAgentTree(request);
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorProductsRequest")
     @ResponsePayload
     public CursorProductsResponse cursorProductsRequest(@RequestPayload CursorProductsRequest request) {
@@ -274,5 +326,23 @@ public class WSEndpoint {
     @ResponsePayload
     public CursorSubDepResponse cursorSubDepRequest(@RequestPayload CursorSubDepRequest request) {
         return cursorSubDepComponent.cursorSubDep(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorAgentLevelRequest")
+    @ResponsePayload
+    public CursorAgentLevelResponse cursorAgentLevelRequest(@RequestPayload CursorAgentLevelRequest request) {
+        return cursorAgentLevelComponent.cursorLevel(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorAgentConditionRequest")
+    @ResponsePayload
+    public CursorAgentConditionResponse cursorAgentConditionRequest(@RequestPayload CursorAgentConditionRequest request) {
+        return cursorAgentConditionComponent.cursorCondition(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cursorAutoPayRequest")
+    @ResponsePayload
+    public CursorAutoPayResponse cursorAutoPayRequest(@RequestPayload CursorAutoPayRequest request) {
+        return cursorAutoPayComponent.cursorAuto(request);
     }
 }
