@@ -2,6 +2,7 @@ package kz.ffinlife.ws.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,16 +13,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String REALM_NAME = "ffinlife";
 
-    @Value("ffinlife_site")
+    @Value("${security.user.name.ffin}")
     private String ffinUsername;
 
-    @Value("1q3wr2")
+    @Value("${security.user.password.ffin}")
     private String ffinPassword;
 
-    @Value("kaspi")
+    @Value("${security.user.name.admin}")
     private String username;
 
-    @Value("kaspi")
+    @Value("${security.user.password.admin}")
     private String password;
 
     @Override

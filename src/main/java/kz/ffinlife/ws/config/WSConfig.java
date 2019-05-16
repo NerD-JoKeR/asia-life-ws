@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurationSupport;
 import org.springframework.ws.server.endpoint.adapter.DefaultMethodEndpointAdapter;
@@ -21,6 +22,7 @@ import org.springframework.xml.xsd.XsdSchema;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "https://localhost:8443/")
 @EnableWs
 @Configuration
 public class WSConfig extends WsConfigurationSupport/* WsConfigurerAdapter */ {
@@ -30,7 +32,7 @@ public class WSConfig extends WsConfigurationSupport/* WsConfigurerAdapter */ {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("FFINLifePort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://ffinlife/ws");
+        wsdl11Definition.setTargetNamespace("https://ffinlife/ws");
         wsdl11Definition.setSchema(schema);
         return wsdl11Definition;
     }

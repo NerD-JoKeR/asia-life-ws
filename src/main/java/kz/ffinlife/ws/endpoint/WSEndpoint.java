@@ -30,6 +30,8 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 
+
+
 @Endpoint
 public class WSEndpoint {
     private static final String NAMESPACE_URI = "http://ffinlife/ws";
@@ -49,6 +51,9 @@ public class WSEndpoint {
     @Autowired
     private ProofPaymentComponent proofPaymentComponent;
 
+
+    @Autowired
+    private CabCountryComponent cabCountryComponent;
 
     @Autowired
     private ChangePasswordComponent changePasswordComponent;
@@ -182,6 +187,12 @@ public class WSEndpoint {
     @ResponsePayload
     public ProofPaymentResponse proofPaymentRequest(@RequestPayload ProofPaymentRequest request) {
         return proofPaymentComponent.payment(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cabCountryRequest")
+    @ResponsePayload
+    public CabCountryResponse cabCountryRequest(@RequestPayload CabCountryRequest request) {
+        return cabCountryComponent.country(request);
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "registrationCabAgentRequest")

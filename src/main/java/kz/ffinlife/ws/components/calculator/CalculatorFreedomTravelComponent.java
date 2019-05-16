@@ -47,6 +47,9 @@ public class CalculatorFreedomTravelComponent extends CommonComponent{
 
             callableStatement = conn.prepareCall(sql);
 
+            System.out.println("ok");
+            System.out.println("we in calculator");
+
             callableStatement.setInt(2, request.getInsuranceProgramm());
             callableStatement.setDate(3, new java.sql.Date(begin.getTime()));
             callableStatement.setDate(4, new java.sql.Date(end.getTime()));

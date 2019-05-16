@@ -20,6 +20,7 @@ public class AuthorizationWSComponent {
         Connection conn = null;
         CallableStatement callableStatement = null;
 
+
         try {
             DriverManager.registerDriver(new OracleDriver());
 

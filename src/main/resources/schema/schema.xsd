@@ -182,6 +182,30 @@
 
 
 
+    <xs:element name="cabCountryRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cabCountryResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="countries" type="ffin:document6" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+
     <xs:element name="registrationFreedomTravelRequest">
         <xs:complexType>
             <xs:complexContent>
@@ -1026,6 +1050,14 @@
         <xs:sequence>
             <xs:element name="data" type="xs:string" />
             <xs:element name="sum" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="document6">
+        <xs:sequence>
+            <xs:element name="codeOfCountry" type="xs:string" />
+            <xs:element name="nameOfCountry" type="xs:string" />
         </xs:sequence>
     </xs:complexType>
 
