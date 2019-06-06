@@ -42,10 +42,12 @@ public class CabCountryComponent extends CommonComponent {
             response.setSuccess(true);
             while (rs.next()) {
                 String ID = rs.getString("VALUE");
-                String TEXT = rs.getString("TEXT");
+                String NAME = rs.getString("TEXT");
+                String Territory = rs.getString("TER");
                 Document6 doc = new Document6();
                 doc.setCodeOfCountry(ID);
-                doc.setNameOfCountry(TEXT);
+                doc.setNameOfCountry(NAME);
+                doc.setTerritoryCountry(Territory);
                 response.getCountries().add(doc);
             }
             rs.getArray(0);

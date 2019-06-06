@@ -34,7 +34,7 @@ public class CabPayRollComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{? = call cab_rep_payroll_2.runReport(?,?,?,?,?,?,?,?,?,?)}"; // connected to webserevice and call method from LIC
+            String sql = "{? = call cab_rep_payroll_2.runReport(?,?,?,?,?,?,?,?,?,?,?)}"; // connected to webserevice and call method from LIC
 
             callableStatement = conn.prepareCall(sql);
 
@@ -54,6 +54,7 @@ public class CabPayRollComponent extends CommonComponent {
             callableStatement.execute();
 
             response.setCabPAyRollResult(callableStatement.getInt(1));
+            response.setCabPAyRollMessage(callableStatement.getString(12));
             response.setSuccess(true);
 
             callableStatement.close();

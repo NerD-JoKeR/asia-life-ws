@@ -22,7 +22,6 @@ import org.springframework.xml.xsd.XsdSchema;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "https://localhost:8443/")
 @EnableWs
 @Configuration
 public class WSConfig extends WsConfigurationSupport/* WsConfigurerAdapter */ {

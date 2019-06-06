@@ -10,6 +10,7 @@ import java.sql.*;
 
 
 @Component
+
 public class CursorAgentConditionComponent extends CommonComponent {
 
     public CursorAgentConditionResponse cursorCondition(CursorAgentConditionRequest request){

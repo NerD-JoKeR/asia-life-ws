@@ -212,6 +212,8 @@
                 <xs:extension base="ffin:commonRequest">
                     <xs:sequence>
                         <xs:element name="country1" type="xs:int"/>
+                        <xs:element name="country2" type="xs:int"/>
+                        <xs:element name="country3" type="xs:int"/>
                         <xs:element name="rprogramm" type="xs:int"/>
                         <xs:element name="rprogSrok" type="xs:int"/>
                         <xs:element name="progMaxDays" type="xs:int"/>
@@ -266,7 +268,6 @@
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
-
 
 
     <xs:element name="repWorkActCabRequest">
@@ -471,6 +472,7 @@
                 <xs:extension base="ffin:commonResponse">
                     <xs:sequence>
                         <xs:element name="cabPAyRollResult" type="xs:int"/>
+                        <xs:element name="cabPAyRollMessage" type="xs:string"/>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
@@ -751,8 +753,6 @@
             <xs:element name="col10" type="xs:string" />
         </xs:sequence>
     </xs:complexType>
-
-
 
 
     <xs:element name="cursorAgentIDRequest">
@@ -1058,6 +1058,7 @@
         <xs:sequence>
             <xs:element name="codeOfCountry" type="xs:string" />
             <xs:element name="nameOfCountry" type="xs:string" />
+            <xs:element name="territoryCountry" type="xs:string" />
         </xs:sequence>
     </xs:complexType>
 

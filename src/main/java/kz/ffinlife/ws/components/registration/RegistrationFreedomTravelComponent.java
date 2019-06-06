@@ -49,48 +49,50 @@ public class RegistrationFreedomTravelComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{ ? = call WEBSERVICE.reg_mst(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+            String sql = "{ ? = call WEBSERVICE.reg_mst(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 
             callableStatement = conn.prepareCall(sql);
 
             callableStatement.setInt(2, request.getCountry1()); //Country1 in number
-            callableStatement.setInt(3, request.getRprogramm()); //rprogramm in number
-            callableStatement.setInt(4, request.getRprogSrok()); //rprog_srok in number
-            callableStatement.setInt(5, request.getProgMaxDays()); //prog_max_days in number
-            callableStatement.setDate(6, new java.sql.Date(begin.getTime())); //Date_Start in date
-            callableStatement.setDate(7, new java.sql.Date(end.getTime())); //Date_End in date
-            callableStatement.setInt(8, request.getCurRate()); //CurRate in number
-            callableStatement.setString(9, request.getFioKir()); //FIO_kir in varchar2
-            callableStatement.setString(10, request.getFioLat()); //FIO_lat in varchar2
-            callableStatement.setString(11, request.getInn()); //IIN in varchar2
-            callableStatement.setString(12, request.getResId()); //RESID in varchar2
-            callableStatement.setString(13, request.getAddress()); //Adress in varchar2
-            callableStatement.setString(14, request.getSex()); //sex in varchar2
-            callableStatement.setDate(15, new java.sql.Date(birth.getTime())); //date_birth in date
-            callableStatement.setInt(16, request.getRegion()); //Region in number
-            callableStatement.setString(17, request.getFioKir2()); //FIO_kir2 in varchar2
-            callableStatement.setString(18, request.getFioLat2()); //FIO_lat2 in varchar2
-            callableStatement.setString(19, request.getIin2()); //IIN2 in varchar2
-            callableStatement.setString(20, request.getResId2()); //RESID2 in varchar2
-            callableStatement.setString(21, request.getAddress2()); //Address2 in varchar2
-            callableStatement.setString(22, request.getSex2()); //sex2 in varchar2
-            callableStatement.setDate(23, new java.sql.Date(birth2.getTime())); //date_birth2 in date
-            callableStatement.setInt(24, request.getRegion2()); //Region2 in number
-            callableStatement.setString(25, request.getPassportNum()); //Passport_num in varchar2
-            callableStatement.setString(26, request.getPassportGive()); //Passport_give in varchar
-            callableStatement.setDate(27, new java.sql.Date(passportDate.getTime())); //Passport_date in date
-            callableStatement.setDate(28, new java.sql.Date(passportEnd.getTime())); //Passport_date_end in date
-            callableStatement.setInt(29, request.getDocType()); //doc_type in number
-            callableStatement.setString(30, request.getPassportNum2()); //Passport_num2 in varchar2
-            callableStatement.setString(31, request.getPassportGive2()); //Passport_give2 in varchar
-            callableStatement.setDate(32, new java.sql.Date(passportDate2.getTime())); //Passport_date2 in date
-            callableStatement.setDate(33, new java.sql.Date(passportEnd2.getTime())); //Passport_date_end2 in date
-            callableStatement.setString(34, request.getMobilePhone()); //mobil_phone in varchar2 default null
-            callableStatement.setString(35, request.getPhone()); //phone in varchar2 default null
-            callableStatement.setString(36, request.getEmail()); //email in varchar2 default null
-            callableStatement.setString(37, request.getMobilePhone2()); //mobil_phone2 in varchar2 default null
-            callableStatement.setString(38, request.getPhone2()); //phone2 in varchar2 default null
-            callableStatement.setString(39, request.getEmail2()); //email2 in varchar2 default null
+            callableStatement.setInt(3, request.getCountry2()); //Country2 in number
+            callableStatement.setInt(4, request.getCountry3()); //Country3 in number
+            callableStatement.setInt(5, request.getRprogramm()); //rprogramm in number
+            callableStatement.setInt(6, request.getRprogSrok()); //rprog_srok in number
+            callableStatement.setInt(7, request.getProgMaxDays()); //prog_max_days in number
+            callableStatement.setDate(8, new java.sql.Date(begin.getTime())); //Date_Start in date
+            callableStatement.setDate(9, new java.sql.Date(end.getTime())); //Date_End in date
+            callableStatement.setInt(10, request.getCurRate()); //CurRate in number
+            callableStatement.setString(11, request.getFioKir()); //FIO_kir in varchar2
+            callableStatement.setString(12, request.getFioLat()); //FIO_lat in varchar2
+            callableStatement.setString(13, request.getInn()); //IIN in varchar2
+            callableStatement.setString(14, request.getResId()); //RESID in varchar2
+            callableStatement.setString(15, request.getAddress()); //Adress in varchar2
+            callableStatement.setString(16, request.getSex()); //sex in varchar2
+            callableStatement.setDate(17, new java.sql.Date(birth.getTime())); //date_birth in date
+            callableStatement.setInt(18, request.getRegion()); //Region in number
+            callableStatement.setString(19, request.getFioKir2()); //FIO_kir2 in varchar2
+            callableStatement.setString(20, request.getFioLat2()); //FIO_lat2 in varchar2
+            callableStatement.setString(21, request.getIin2()); //IIN2 in varchar2
+            callableStatement.setString(22, request.getResId2()); //RESID2 in varchar2
+            callableStatement.setString(23, request.getAddress2()); //Address2 in varchar2
+            callableStatement.setString(24, request.getSex2()); //sex2 in varchar2
+            callableStatement.setDate(25, new java.sql.Date(birth2.getTime())); //date_birth2 in date
+            callableStatement.setInt(26, request.getRegion2()); //Region2 in number
+            callableStatement.setString(27, request.getPassportNum()); //Passport_num in varchar2
+            callableStatement.setString(28, request.getPassportGive()); //Passport_give in varchar
+            callableStatement.setDate(29, new java.sql.Date(passportDate.getTime())); //Passport_date in date
+            callableStatement.setDate(30, new java.sql.Date(passportEnd.getTime())); //Passport_date_end in date
+            callableStatement.setInt(31, request.getDocType()); //doc_type in number
+            callableStatement.setString(32, request.getPassportNum2()); //Passport_num2 in varchar2
+            callableStatement.setString(33, request.getPassportGive2()); //Passport_give2 in varchar
+            callableStatement.setDate(34, new java.sql.Date(passportDate2.getTime())); //Passport_date2 in date
+            callableStatement.setDate(35, new java.sql.Date(passportEnd2.getTime())); //Passport_date_end2 in date
+            callableStatement.setString(36, request.getMobilePhone()); //mobil_phone in varchar2 default null
+            callableStatement.setString(37, request.getPhone()); //phone in varchar2 default null
+            callableStatement.setString(38, request.getEmail()); //email in varchar2 default null
+            callableStatement.setString(39, request.getMobilePhone2()); //mobil_phone2 in varchar2 default null
+            callableStatement.setString(40, request.getPhone2()); //phone2 in varchar2 default null
+            callableStatement.setString(41, request.getEmail2()); //email2 in varchar2 default null
 
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
 
