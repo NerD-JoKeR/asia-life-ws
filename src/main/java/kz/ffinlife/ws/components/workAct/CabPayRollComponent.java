@@ -6,10 +6,7 @@ import kz.ffinlife.ws.components.common.CommonComponent;
 import oracle.jdbc.driver.OracleDriver;
 import org.springframework.stereotype.Component;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 
 @Component
@@ -34,7 +31,7 @@ public class CabPayRollComponent extends CommonComponent {
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{? = call cab_rep_payroll_2.runReport(?,?,?,?,?,?,?,?,?,?,?)}"; // connected to webserevice and call method from LIC
+            String sql = "{? = call cab_rep_payroll_2.runReport(?,?,?,?,?,?,?,?,?,?)}"; // connected to webserevice and call method from LIC
 
             callableStatement = conn.prepareCall(sql);
 
@@ -50,11 +47,12 @@ public class CabPayRollComponent extends CommonComponent {
             callableStatement.setString(11, request.getDateTo());
 
             callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+            //callableStatement.registerOutParameter(12, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
 
             response.setCabPAyRollResult(callableStatement.getInt(1));
-            response.setCabPAyRollMessage(callableStatement.getString(12));
+            //response.setCabPAyRollMessage(callableStatement.getString(12));
             response.setSuccess(true);
 
             callableStatement.close();

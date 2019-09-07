@@ -5,7 +5,7 @@
 
     <groupId>kz.ffinlife.ws</groupId>
     <artifactId>ffin-life-ws</artifactId>
-    <version>2.0</version>
+    <version>2.4</version>
     <packaging>jar</packaging>
 
     <name>ffin-life-ws</name>

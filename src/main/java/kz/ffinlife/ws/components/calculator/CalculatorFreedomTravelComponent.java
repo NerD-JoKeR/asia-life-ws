@@ -43,7 +43,7 @@ public class CalculatorFreedomTravelComponent extends CommonComponent{
 
             conn = DriverManager.getConnection(url, "mlm", "mlm");
 
-            String sql = "{ ? = call WEBSERVICE.calc_mst(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+            String sql = "{ ? = call WEBSERVICE.calc_mst(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 
             callableStatement = conn.prepareCall(sql);
 
@@ -55,27 +55,28 @@ public class CalculatorFreedomTravelComponent extends CommonComponent{
             callableStatement.setDate(4, new java.sql.Date(end.getTime()));
             callableStatement.setDate(5, new java.sql.Date(birth.getTime()));
             callableStatement.setInt(6, request.getSumStrah());//sum_strah
-            callableStatement.setInt(7, request.getCountry1());
-            callableStatement.setInt(8, request.getCountry2());
-            callableStatement.setInt(9, request.getCountry3());
-            callableStatement.setInt(10, request.getRprogSrok());
-            callableStatement.setInt(11, request.getRprogMaxDays());
+            callableStatement.setInt(7, request.getStrEdet());//straxovatel'
+            callableStatement.setInt(8, request.getCountry1());
+            callableStatement.setInt(9, request.getCountry2());
+            callableStatement.setInt(10, request.getCountry3());
+            callableStatement.setInt(11, request.getRprogSrok());
             callableStatement.setInt(12, request.getRprogMaxDays());
-            callableStatement.setString(13, request.getEmail());
+            callableStatement.setInt(13, request.getRprogMaxDays());
+            callableStatement.setString(14, request.getEmail());
 
             callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
-            callableStatement.registerOutParameter(14, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(15, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(16, java.sql.Types.VARCHAR);
             callableStatement.registerOutParameter(17, java.sql.Types.VARCHAR);
+            callableStatement.registerOutParameter(18, java.sql.Types.VARCHAR);
 
             callableStatement.execute();
 
             response.setPremKz(callableStatement.getString(1));
-            response.setKurs(callableStatement.getString(14));
-            response.setSumStrahKz(callableStatement.getString(15));
-            response.setPremEur(callableStatement.getString(16));
-            response.setErr(callableStatement.getString(17));
+            response.setKurs(callableStatement.getString(15));
+            response.setSumStrahKz(callableStatement.getString(16));
+            response.setPremEur(callableStatement.getString(17));
+            response.setErr(callableStatement.getString(18));
             response.setSuccess(true);
 
             callableStatement.close();

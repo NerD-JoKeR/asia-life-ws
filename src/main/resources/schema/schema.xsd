@@ -203,6 +203,183 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="word2pdfRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="docNumber" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="word2pdfResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <!--<xs:element name="file" type="xs:base64Binary"/>-->
+                        <xs:element name="doc" type="xs:string"/>
+                        <xs:element name="pdf" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+
+    <xs:element name="chokoTravelSaveRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="last_name" type="xs:string"/>
+                        <xs:element name="first_name" type="xs:string"/>
+                        <xs:element name="iin" type="xs:string"/>
+                        <xs:element name="doc_type" type="xs:string"/>
+                        <xs:element name="doc_number" type="xs:string"/>
+                        <xs:element name="doc_date" type="xs:string"/>
+                        <xs:element name="birth_date" type="xs:string"/>
+                        <xs:element name="city_out" type="xs:string"/>
+                        <xs:element name="city_in" type="xs:string"/>
+                        <xs:element name="date_out" type="xs:string"/>
+                        <xs:element name="date_in" type="xs:string"/>
+                        <xs:element name="type_fly" type="xs:string"/>
+                        <xs:element name="type_flight" type="xs:string"/>
+                        <xs:element name="insurer_name" type="xs:string"/>
+                        <xs:element name="insurer_surname" type="xs:string"/>
+                        <xs:element name="insurer_inn" type="xs:string"/>
+                        <xs:element name="insurer_doc_Type" type="xs:string"/>
+                        <xs:element name="insurer_doc_Number" type="xs:string"/>
+                        <xs:element name="insurer_bDate" type="xs:string"/>
+                        <xs:element name="insurer_doc_date" type="xs:string"/>
+                        <xs:element name="insurer_phone_number" type="xs:string"/>
+                        <xs:element name="insurer_email" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="chokoTravelSaveResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="response" type="xs:string" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="chokoTravelCheckRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="text" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="chokoTravelCheckResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="response" type="xs:string" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="chokoTravelCancelRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="text" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="chokoTravelCancelResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="response" type="xs:string" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="chokoTravelSendNotificationRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="text" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="chokoTravelSendNotificationResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="response" type="xs:string" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="statementHealthRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonRequest">
+                    <xs:sequence>
+                        <xs:element name="text" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="statementHealthResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ffin:commonResponse">
+                    <xs:sequence>
+                        <xs:element name="response" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
 
 
 
@@ -472,7 +649,7 @@
                 <xs:extension base="ffin:commonResponse">
                     <xs:sequence>
                         <xs:element name="cabPAyRollResult" type="xs:int"/>
-                        <xs:element name="cabPAyRollMessage" type="xs:string"/>
+                        <!--<xs:element name="cabPAyRollMessage" type="xs:string"/>-->
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
@@ -521,6 +698,7 @@
                             <xs:element name="country2" type="xs:int"/>
                             <xs:element name="country3" type="xs:int"/>
                             <xs:element name="sumStrah" type="xs:int"/>
+                            <xs:element name="str_edet" type="xs:int"/>
                             <xs:element name="insuranceProgramm" type="xs:int"/>
                             <xs:element name="beginDate" type="xs:string"/>
                             <xs:element name="endDate" type="xs:string"/>

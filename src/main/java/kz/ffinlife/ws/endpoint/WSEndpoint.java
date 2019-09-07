@@ -14,22 +14,24 @@ import kz.ffinlife.ws.components.calculator.*;
 import kz.ffinlife.ws.components.changePassword.ChangePassCabAgentComponent;
 import kz.ffinlife.ws.components.changePassword.ChangePasswordComponent;
 import kz.ffinlife.ws.components.changePassword.RecoveryPassCabAgentComponent;
+import kz.ffinlife.ws.components.chokoTravel.ChokoSendNotifyComponent;
+import kz.ffinlife.ws.components.chokoTravel.ChokoTravelCancelComponent;
+import kz.ffinlife.ws.components.chokoTravel.ChokoTravelCheckComponent;
+import kz.ffinlife.ws.components.chokoTravel.ChokoTravelSaveComponent;
 import kz.ffinlife.ws.components.cursor.*;
 import kz.ffinlife.ws.components.methods.ProofPaymentComponent;
-import kz.ffinlife.ws.components.registration.RegistrationCabAgentComponent;
-import kz.ffinlife.ws.components.registration.RegistrationClientComponent;
-import kz.ffinlife.ws.components.registration.RegistrationFreedomTravelComponent;
-import kz.ffinlife.ws.components.registration.VerifyClientComponent;
+import kz.ffinlife.ws.components.registration.*;
 import kz.ffinlife.ws.components.workAct.CabDocumentsComponent;
 import kz.ffinlife.ws.components.workAct.CabPayRollComponent;
 import kz.ffinlife.ws.components.workAct.CabRepWorkActComponent;
+import kz.ffinlife.ws.components.workAct.Word2PdfComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-
+import javax.xml.ws.spi.WebServiceFeatureAnnotation;
 
 
 @Endpoint
@@ -49,11 +51,28 @@ public class WSEndpoint {
 
 
     @Autowired
+    private StatementHealthComponent statementHealthComponent;
+
+    @Autowired
+    private ChokoTravelSaveComponent chokoTravelSaveComponent;
+
+
+    @Autowired
+    private ChokoTravelCheckComponent chokoTravelCheckComponent;
+
+    @Autowired
+    private ChokoTravelCancelComponent chokoTravelCancelComponent;
+
+    @Autowired
+    private ChokoSendNotifyComponent chokoSendNotifyComponent;
+
+    @Autowired
     private ProofPaymentComponent proofPaymentComponent;
 
 
     @Autowired
     private CabCountryComponent cabCountryComponent;
+
 
     @Autowired
     private ChangePasswordComponent changePasswordComponent;
@@ -93,6 +112,9 @@ public class WSEndpoint {
 
     @Autowired
     private CabDocumentsComponent cabDocumentsComponent;
+
+    @Autowired
+    private Word2PdfComponent word2PdfComponent;
 
 
     @Autowired
@@ -183,6 +205,30 @@ public class WSEndpoint {
         return authorizationCabAgentComponent.authorizeCabAgent(request);
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "chokoTravelSaveRequest")
+    @ResponsePayload
+    public ChokoTravelSaveResponse chokoTravelSaveRequest(@RequestPayload ChokoTravelSaveRequest request) {
+        return chokoTravelSaveComponent.chokoSave(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "chokoTravelCheckRequest")
+    @ResponsePayload
+    public ChokoTravelCheckResponse chokoTravelCheckRequest(@RequestPayload ChokoTravelCheckRequest request) {
+        return chokoTravelCheckComponent.chokoCheck(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "chokoTravelCancelRequest")
+    @ResponsePayload
+    public ChokoTravelCancelResponse chokoTravelCancelRequest(@RequestPayload ChokoTravelCancelRequest request) {
+        return chokoTravelCancelComponent.chokoCancel(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "chokoTravelSendNotificationRequest")
+    @ResponsePayload
+    public ChokoTravelSendNotificationResponse chokoTravelSendNotificationRequest(@RequestPayload ChokoTravelSendNotificationRequest request) {
+        return chokoSendNotifyComponent.chokoSendNotify(request);
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "proofPaymentRequest")
     @ResponsePayload
     public ProofPaymentResponse proofPaymentRequest(@RequestPayload ProofPaymentRequest request) {
@@ -225,6 +271,12 @@ public class WSEndpoint {
         return cabDocumentsComponent.mtom(request);
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "word2pdfRequest")
+    @ResponsePayload
+    public Word2PdfResponse word2pdfRequest(@RequestPayload Word2PdfRequest request) {
+        return word2PdfComponent.word2pdf(request);
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "repWorkActCabRequest")
     @ResponsePayload
     public RepWorkActCabResponse repWorkActCabRequest(@RequestPayload RepWorkActCabRequest request) {
@@ -265,6 +317,12 @@ public class WSEndpoint {
     @ResponsePayload
     public CalculatorFreedomKidsResponse freedomKidsRequest(@RequestPayload CalculatorFreedomKidsRequest request) {
         return calculatorFreedomKidsComponent.freedomKids(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "statementHealthRequest")
+    @ResponsePayload
+    public StatementHealthResponse statementHealthRequest(@RequestPayload StatementHealthRequest request) {
+        return statementHealthComponent.statementHealth(request);
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "calculatorFreedomFutureRequest")
